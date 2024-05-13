@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 
+
 @Entity(name = "anouces_users")
 @Data
 public class AnoucesUsers {

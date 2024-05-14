@@ -1,6 +1,5 @@
 package com.backend.androidProjectBE.dto;
 
-import jakarta.persistence.Column;
 import lombok.Data;
 
 import java.util.Date;
@@ -9,6 +8,8 @@ import java.util.Date;
 @Data
 public class UserDTO {
     private int id;
+
+    private String username;
 
     private String firstname;
 

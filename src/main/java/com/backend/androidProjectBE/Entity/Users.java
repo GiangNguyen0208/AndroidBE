@@ -11,7 +11,10 @@ import java.util.Set;
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
+
+    @Column(name = "username")
+    private String username;
 
     @Column(name = "firstname")
     private String firstname;
@@ -19,14 +22,11 @@ public class Users {
     @Column(name = "lastname")
     private String lastname;
 
-    @Column(name = "password")
-    private String password;
-
     @Column(name = "gender")
     private Boolean gender;
 
     @Column(name = "phone")
-    private int phone;
+    private Integer phone;
 
     @Column(name = "email")
     private String email;
@@ -39,6 +39,9 @@ public class Users {
 
     @Column(name = "status")
     private Boolean status;
+
+    @Column(name = "password")
+    private String password;
 
     @ManyToOne
     @JoinColumn(name = "role_id")

@@ -1,7 +1,11 @@
 package com.backend.androidProjectBE.Repository;
 
 import com.backend.androidProjectBE.Entity.Users;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -10,4 +14,13 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<Users, Integer> {
         List<Users> findByEmailAndPassword(String email, String password);
         Users findByUsername(String username);
+
+//        @Modifying
+//        @Query(value = "INSERT INTO users(firstname, lastname, email, password) VALUES(:firstname, :lastname, :email, :password)", nativeQuery = true)
+//        int registerNewUser(@Param("firstname") String firstname,
+//                            @Param("lastname") String lastname,
+//                            @Param("email") String email,
+//                            @Param("password") String password);
+
+
 }

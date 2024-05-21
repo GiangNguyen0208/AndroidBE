@@ -16,19 +16,22 @@ public class UserService implements UserServiceImp {
     @Autowired
     UserRepository userRepository;
 
-    @Override
-    public List<UserDTO> getAllUser() {
-        List<Users> listUser = userRepository.findAll();
-        List<UserDTO> userDTOList = new ArrayList<>();
-        for (Users u: listUser) {
-            UserDTO userDTO = new UserDTO();
-            userDTO.setId(u.getId());
-            userDTO.setEmail(u.getEmail());
-            userDTO.setBirthDay(u.getBirthDay());
-            userDTO.setPassword(u.getPassword());
+//    @Override
+//    public List<UserDTO> getAllUser() {
+//        List<Users> listUser = userRepository.findAll();
+//        List<UserDTO> userDTOList = new ArrayList<>();
+//        for (Users u: listUser) {
+//            UserDTO userDTO = new UserDTO();
+//            userDTO.setId(u.getId());
+//            userDTO.setEmail(u.getEmail());
+//            userDTO.setBirthDay(u.getBirthDay());
+//            userDTO.setPassword(u.getPassword());
+//
+//            userDTOList.add(userDTO);
+//        }
+//        return userDTOList;
+//    }
 
-            userDTOList.add(userDTO);
-        }
-        return userDTOList;
-    }
+
+
 }

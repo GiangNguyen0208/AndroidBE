@@ -5,6 +5,7 @@ import com.backend.androidProjectBE.Repository.UserRepository;
 import com.backend.androidProjectBE.Service.imp.LoginServiceImp;
 import com.backend.androidProjectBE.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -30,30 +31,27 @@ public class LoginService implements LoginServiceImp {
         return userDTOList;
     }
 
+
     @Override
     public boolean checkLogin(String email, String password) {
-
-        List<Users> listUser = userRepository.findByEmailAndPassword(email,password);
-
-        return listUser.size() > 0;
+        BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
+        Users users = userRepository.findByEmail(email);
+        boolean isExist = bcrypt.matches(password, users.getPassword());
+        return isExist;
     }
-
 //    @Override
-//    public boolean addUser(SignupRequest signupRequest) {
-////        Roles roles = new Roles();
-////        roles.setId(signupRequest.getId_role());
-//
-//        Users users = new Users();
-//        users.setFullname(signupRequest.getFullname());
-//        users.setPassword(signupRequest.getPassword());
-//        users.setEmail(signupRequest.getEmail());
-////        users.setRoles(roles);
-//
-//        try {
-//            userRepository.save(users);
-//            return true;
-//        } catch (Exception e) {
-//            return false;
-//        }
+//    public String checkUserEmail(String email){
+//        return userRepository.checkUserEmail(email);
 //    }
+//    // Check User Email Service Method
+//    @Override
+//    public String checkUserPasswordByEmail(String email) {
+//        return userRepository.checkUserPasswordByEmail(email);
+//    }
+//    // End of Check User Password Service Method
+//    @Override
+//    public Users getUserDetail(String email) {
+//        return userRepository.getUserDetail(email);
+//    }
+    // End of get User Details By Email
 }

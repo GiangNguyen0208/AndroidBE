@@ -16,9 +16,9 @@ public class UserController {
     @Autowired
     UserServiceImp userServiceImp;
 
-    @GetMapping("admin/getAllUser")
-    public ResponseEntity<?> getAllUser() {
-        return new ResponseEntity<>(userServiceImp.getAllUser(), HttpStatus.OK);
-    }
+//    @GetMapping("admin/getAllUser")
+//    public ResponseEntity<?> getAllUser() {
+//        return new ResponseEntity<>(userServiceImp.getAllUser(), HttpStatus.OK);
+//    }
 
 }

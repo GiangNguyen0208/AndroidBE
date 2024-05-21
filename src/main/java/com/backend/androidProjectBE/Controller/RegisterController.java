@@ -35,7 +35,6 @@ public class RegisterController {
         /// Register New User:
         boolean isRegistered = registerServiceImp.registerNewUserServiceMethod(users);
 
-
         if (isRegistered) {
             return ResponseEntity.ok(Result.builder().message("Registration success").build());
         } else {
@@ -51,5 +50,4 @@ public class RegisterController {
 @NoArgsConstructor
 class Result {
     private String message;
-
 }

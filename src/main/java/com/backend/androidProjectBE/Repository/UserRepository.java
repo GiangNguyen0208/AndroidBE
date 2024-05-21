@@ -12,15 +12,14 @@ import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<Users, Integer> {
-        List<Users> findByEmailAndPassword(String email, String password);
         Users findByUsername(String username);
-
-//        @Modifying
-//        @Query(value = "INSERT INTO users(firstname, lastname, email, password) VALUES(:firstname, :lastname, :email, :password)", nativeQuery = true)
-//        int registerNewUser(@Param("firstname") String firstname,
-//                            @Param("lastname") String lastname,
-//                            @Param("email") String email,
-//                            @Param("password") String password);
-
-
+        Users findByEmail(String email);
+//        @Query(value = "SELECT email FROM users WHERE email = :email" , nativeQuery = true)
+//        String checkUserEmail(@Param("email") String email);
+//
+//        @Query(value = "SELECT password FROM users Where email = :email", nativeQuery = true)
+//        String checkUserPasswordByEmail(@Param("email") String email);
+//
+//        @Query(value = "SELECT * FROM users WHERE email = :email", nativeQuery = true)
+//        Users getUserDetail(@Param("email") String email);
 }

@@ -22,4 +22,5 @@ public class RegisterService implements RegisterServiceImp {
             return false; // Registration failed
         }
     }
+    // End of register New User Service Method
 }

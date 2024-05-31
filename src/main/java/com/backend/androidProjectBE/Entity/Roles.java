@@ -10,13 +10,11 @@ import java.util.Set;
 @Entity(name = "roles")
 public class Roles {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "name")
     private String name;
 
-    @Column(name = "date_create")
     private Date dateCreate;
 
     @OneToMany(mappedBy = "roles")

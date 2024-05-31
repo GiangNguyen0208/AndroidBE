@@ -9,10 +9,9 @@ import java.util.Set;
 @Data
 public class Discounts {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "value")
     private Double value;
 
     @OneToMany(mappedBy = "discounts")

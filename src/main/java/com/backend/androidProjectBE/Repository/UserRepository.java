@@ -14,12 +14,4 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<Users, Integer> {
         Users findByUsername(String username);
         Users findByEmail(String email);
-//        @Query(value = "SELECT email FROM users WHERE email = :email" , nativeQuery = true)
-//        String checkUserEmail(@Param("email") String email);
-//
-//        @Query(value = "SELECT password FROM users Where email = :email", nativeQuery = true)
-//        String checkUserPasswordByEmail(@Param("email") String email);
-//
-//        @Query(value = "SELECT * FROM users WHERE email = :email", nativeQuery = true)
-//        Users getUserDetail(@Param("email") String email);
 }

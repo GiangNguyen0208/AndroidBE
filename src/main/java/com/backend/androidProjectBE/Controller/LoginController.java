@@ -28,19 +28,5 @@ public class LoginController {
         } else {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Please Register Before Login");
         }
-        // Get Email User
-//        String userEmail = loginServiceImp.checkUserEmail(users.getEmail());
-//        // Check if Email is Empty
-//        if (userEmail.isEmpty() || userEmail == null) {
-//            return new ResponseEntity("Email does not exist", HttpStatus.NOT_FOUND);
-//        }
-//        String hashPass = loginServiceImp.checkUserPasswordByEmail(users.getEmail());
-//        // Validate User Password
-//        if (BCrypt.checkpw(users.getPassword(), hashPass)) {
-//            return new ResponseEntity("Incorrect username or password", HttpStatus.BAD_REQUEST);
-//        }
-//        // Set User Object;
-//        Users Users = loginServiceImp.getUserDetail(users.getEmail());
-//        return new ResponseEntity(users, HttpStatus.OK);
     }
 }

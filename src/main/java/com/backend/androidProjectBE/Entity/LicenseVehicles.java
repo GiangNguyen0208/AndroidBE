@@ -9,22 +9,17 @@ import java.util.Date;
 @Data
 public class LicenseVehicles {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "number_code")
     private String numberCode;
 
-    @Column(name = "fullname")
     private String fullname;
 
-    @Column(name = "birthDay")
     private Date birthDay;
 
-    @Column(name = "rank_license")
     private String rankLicense;
 
-    @Column(name = "imgLicense")
     private String imgLicense;
 
     @ManyToOne

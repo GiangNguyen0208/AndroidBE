@@ -10,13 +10,11 @@ import java.util.Set;
 @Data
 public class Rentals {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "rental_date")
     private Date rentalDate;
 
-    @Column(name = "return_date")
     private Date returnDate;
 
     @ManyToOne

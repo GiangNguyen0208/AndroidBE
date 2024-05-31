@@ -9,16 +9,13 @@ import java.util.Date;
 @Data
 public class Rates {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "rateComment")
     private String rateComment;
 
-    @Column(name = "rateScore")
     private int rateScore;
 
-    @Column(name = "date_create")
     private Date dateCreate;
 
     @ManyToOne

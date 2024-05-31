@@ -13,7 +13,7 @@ import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCrypt;
+//import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -29,8 +29,8 @@ public class RegisterController {
             return new ResponseEntity<>("Please Complete all field data", HttpStatus.BAD_REQUEST);
         }
         // Encryt / Hash Password
-        String hashed_password = BCrypt.hashpw(users.getPassword(), BCrypt.gensalt());
-        users.setPassword(hashed_password);
+//        String hashed_password = BCrypt.hashpw(users.getPassword(), BCrypt.gensalt());
+        users.setPassword(users.getPassword());
 
         /// Register New User:
         boolean isRegistered = registerServiceImp.registerNewUserServiceMethod(users);

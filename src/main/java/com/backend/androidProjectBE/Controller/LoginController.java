@@ -1,13 +1,10 @@
 package com.backend.androidProjectBE.Controller;
 
-import com.backend.androidProjectBE.Entity.Users;
 import com.backend.androidProjectBE.Service.imp.LoginServiceImp;
 import com.backend.androidProjectBE.dto.UserLogin;
-import com.backend.androidProjectBE.payload.ResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,6 +20,7 @@ public class LoginController {
 
     @PostMapping("/user/signin")
     public ResponseEntity signin(@RequestBody UserLogin users) {
+        System.out.println("Triggered!");
         if (loginServiceImp.checkLogin(users.getEmail(), users.getPassword())) {
             return new ResponseEntity<>(users, HttpStatus.OK);
         } else {

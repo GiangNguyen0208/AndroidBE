@@ -5,7 +5,7 @@ import com.backend.androidProjectBE.Repository.UserRepository;
 import com.backend.androidProjectBE.Service.imp.LoginServiceImp;
 import com.backend.androidProjectBE.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,6 +14,7 @@ import java.util.List;
 
 @Service    // Dua len Bean
 public class LoginService implements LoginServiceImp {
+
     @Autowired
     UserRepository userRepository;
     public List<UserDTO> getAllUser() {
@@ -34,9 +35,9 @@ public class LoginService implements LoginServiceImp {
 
     @Override
     public boolean checkLogin(String email, String password) {
-        BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
+//        BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
         Users users = userRepository.findByEmail(email);
-        boolean isExist = bcrypt.matches(password, users.getPassword());
+        boolean isExist = password.equals(users.getPassword());
         return isExist;
     }
 }

@@ -13,34 +13,24 @@ public class Users {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "username")
     private String username;
 
-    @Column(name = "firstname")
     private String firstname;
 
-    @Column(name = "lastname")
     private String lastname;
 
-    @Column(name = "gender")
     private Boolean gender;
 
-    @Column(name = "phone")
     private Integer phone;
 
-    @Column(name = "email")
     private String email;
 
-    @Column(name = "birthDay")
     private Date birthDay;
 
-    @Column(name = "role")
     private Boolean role;
 
-    @Column(name = "status")
     private Boolean status;
 
-    @Column(name = "password")
     private String password;
 
     @ManyToOne

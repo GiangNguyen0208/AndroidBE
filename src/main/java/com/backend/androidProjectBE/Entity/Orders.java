@@ -9,8 +9,8 @@ import java.util.Date;
 @Data
 public class Orders {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     @Column(name = "date_create")
     private Date dateCreate;

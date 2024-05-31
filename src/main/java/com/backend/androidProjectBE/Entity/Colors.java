@@ -9,13 +9,11 @@ import java.util.Set;
 @Data
 public class Colors {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "codeColor")
     private String codeColor;
 
-    @Column(name = "nameColor")
     private String nameColor;
 
     @OneToMany(mappedBy = "colors")

@@ -39,19 +39,4 @@ public class LoginService implements LoginServiceImp {
         boolean isExist = bcrypt.matches(password, users.getPassword());
         return isExist;
     }
-//    @Override
-//    public String checkUserEmail(String email){
-//        return userRepository.checkUserEmail(email);
-//    }
-//    // Check User Email Service Method
-//    @Override
-//    public String checkUserPasswordByEmail(String email) {
-//        return userRepository.checkUserPasswordByEmail(email);
-//    }
-//    // End of Check User Password Service Method
-//    @Override
-//    public Users getUserDetail(String email) {
-//        return userRepository.getUserDetail(email);
-//    }
-    // End of get User Details By Email
 }

@@ -10,22 +10,17 @@ import java.util.Set;
 @Data
 public class Cards {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "card_number")
     private String cardNumber;
 
-    @Column(name = "card_name")
     private String cardName;
 
-    @Column(name = "expiry_date")
     private Date expiryDate;
 
-    @Column(name = "fullname")
     private String fullname;
 
-    @Column(name = "user_id")
     private int userId;
 
     @OneToMany(mappedBy = "cards")

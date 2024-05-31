@@ -1,25 +1,28 @@
 package com.backend.androidProjectBE.Entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Set;
 
 
 @Entity(name = "vehicles")
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Vehicles {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "type")
     private String type;
 
-    @Column(name = "status")
     private Boolean status;
 
-    @Column(name = "price")
     private Double price;
 
     @ManyToOne

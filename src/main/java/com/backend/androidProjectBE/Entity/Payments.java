@@ -10,13 +10,11 @@ import java.util.Set;
 @Data
 public class Payments {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "amount")
     private Double amount;
 
-    @Column(name = "date_create")
     private Date dateCreate;
 
     @OneToMany(mappedBy = "payments")

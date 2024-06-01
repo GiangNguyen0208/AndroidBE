@@ -16,13 +16,13 @@ import java.util.stream.Collectors;
 
 @RestController
 //@CrossOrigin("*")
-@RequestMapping("/api/product")
+@RequestMapping("/api/v1")
 public class VehicleController {
 
     @Autowired
     VehiclesServiceImp vehiclesServiceImp;
 
-    @GetMapping("/detail")
+    @GetMapping("/product/detail")
     public ResponseEntity<?> getDetail(@RequestParam int id) {
         Vehicles vehicles = vehiclesServiceImp.findById(id);
         if (vehicles == null) {
@@ -51,23 +51,33 @@ public class VehicleController {
         }
         return new ResponseEntity<>(vehiclesDetail, HttpStatus.OK);
     }
-    @GetMapping("")
+    @GetMapping("/product")
     public ResponseEntity<?> getAllVehicle() {
         return new ResponseEntity<>(vehiclesServiceImp.getAllVehicles(), HttpStatus.OK);
     }
-    @GetMapping("/brand")
+    @GetMapping("/product/brand")
     public ResponseEntity<?> getVehiclesByBrand(@RequestParam int id) {
         List<VehiclesDTO> vehiclesDTOs = vehiclesServiceImp.getVehiclesByBrand(id);
         return ResponseEntity.ok().body(vehiclesDTOs);
     }
-    @GetMapping("/model")
+    @GetMapping("/product/model")
     public ResponseEntity<?> getVehiclesByModel(@RequestParam int id) {
         List<VehiclesDTO> vehiclesDTOs = vehiclesServiceImp.getVehiclesByModel(id);
         return ResponseEntity.ok().body(vehiclesDTOs);
     }
-    @GetMapping("/price")
+    @GetMapping("/product/price")
     public ResponseEntity<?> getVehiclesByModel(@RequestParam double minPrice, @RequestParam double maxPrice) {
         List<VehiclesDTO> vehiclesDTOs = vehiclesServiceImp.getVehiclesByPrice(minPrice, maxPrice);
+        return ResponseEntity.ok().body(vehiclesDTOs);
+    }
+    @GetMapping("/product/type")
+    public ResponseEntity<?> getVehiclesByModel(@RequestParam String type) {
+        List<VehiclesDTO> vehiclesDTOs = vehiclesServiceImp.getVehiclesByType(type);
+        return ResponseEntity.ok().body(vehiclesDTOs);
+    }
+    @GetMapping("/product/search")
+    public ResponseEntity<?> getVehiclesByTxtSearch(@RequestParam String txtSearch) {
+        List<VehiclesDTO> vehiclesDTOs = vehiclesServiceImp.getVehiclesByTxtSearch(txtSearch);
         return ResponseEntity.ok().body(vehiclesDTOs);
     }
 }

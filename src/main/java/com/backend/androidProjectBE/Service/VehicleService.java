@@ -67,6 +67,8 @@ public class VehicleService implements VehiclesServiceImp {
             vehiclesDTO.getBrandDTO().setName(vehicles.getBrands().getName());
             vehiclesDTO.getDiscountDTO().setValue(vehicles.getDiscounts().getValue());
             vehiclesDTO.getModelDTO().setName(vehicles.getModels().getName());
+
+            listVehicleDTOByBrandName.add(vehiclesDTO);
         }
         return listVehicleDTOByBrandName;
     }
@@ -86,6 +88,8 @@ public class VehicleService implements VehiclesServiceImp {
             vehiclesDTO.getBrandDTO().setName(vehicles.getBrands().getName());
             vehiclesDTO.getDiscountDTO().setValue(vehicles.getDiscounts().getValue());
             vehiclesDTO.getModelDTO().setName(vehicles.getModels().getName());
+
+            listVehicleDTOByModel.add(vehiclesDTO);
         }
         return listVehicleDTOByModel;
     }
@@ -105,7 +109,51 @@ public class VehicleService implements VehiclesServiceImp {
             vehiclesDTO.getBrandDTO().setName(vehicles.getBrands().getName());
             vehiclesDTO.getDiscountDTO().setValue(vehicles.getDiscounts().getValue());
             vehiclesDTO.getModelDTO().setName(vehicles.getModels().getName());
+
+            listVehicleDTOByPrice.add(vehiclesDTO);
         }
         return listVehicleDTOByPrice;
+    }
+
+    @Override
+    public List<VehiclesDTO> getVehiclesByType(String type) {
+        List<Vehicles> listVehicleByType = vehiclesRepository.findByType(type);
+        List<VehiclesDTO> listVehicleDTOByType = new ArrayList<>();
+        for (Vehicles vehicles : listVehicleByType) {
+            VehiclesDTO vehiclesDTO = new VehiclesDTO();
+            vehiclesDTO.setId(vehicles.getId());
+            vehiclesDTO.setType(vehicles.getType());
+            vehiclesDTO.setPrice(vehicles.getPrice());
+            vehiclesDTO.setStatus(vehicles.getStatus());
+            vehiclesDTO.getColorDTO().setNameColor(vehicles.getColors().getNameColor());
+            vehiclesDTO.getImageDTO().setImgLink(vehicles.getImages().getImgLink());
+            vehiclesDTO.getBrandDTO().setName(vehicles.getBrands().getName());
+            vehiclesDTO.getDiscountDTO().setValue(vehicles.getDiscounts().getValue());
+            vehiclesDTO.getModelDTO().setName(vehicles.getModels().getName());
+
+            listVehicleDTOByType.add(vehiclesDTO);
+        }
+        return listVehicleDTOByType;
+    }
+
+    @Override
+    public List<VehiclesDTO> getVehiclesByTxtSearch(String txtSearch) {
+        List<Vehicles> listVehicleByTxtSearch = vehiclesRepository.findByNameContainingIgnoreCase(txtSearch);
+        List<VehiclesDTO> listVehicleDTOByTxtSearch = new ArrayList<>();
+        for (Vehicles vehicles : listVehicleByTxtSearch) {
+            VehiclesDTO vehiclesDTO = new VehiclesDTO();
+            vehiclesDTO.setId(vehicles.getId());
+            vehiclesDTO.setType(vehicles.getType());
+            vehiclesDTO.setPrice(vehicles.getPrice());
+            vehiclesDTO.setStatus(vehicles.getStatus());
+            vehiclesDTO.getColorDTO().setNameColor(vehicles.getColors().getNameColor());
+            vehiclesDTO.getImageDTO().setImgLink(vehicles.getImages().getImgLink());
+            vehiclesDTO.getBrandDTO().setName(vehicles.getBrands().getName());
+            vehiclesDTO.getDiscountDTO().setValue(vehicles.getDiscounts().getValue());
+            vehiclesDTO.getModelDTO().setName(vehicles.getModels().getName());
+
+            listVehicleDTOByTxtSearch.add(vehiclesDTO);
+        }
+        return listVehicleDTOByTxtSearch;
     }
 }

@@ -21,13 +21,11 @@ public class Users {
 
     private Boolean gender;
 
-    private Integer phone;
+    private String phone;
 
     private String email;
 
     private Date birthDay;
-
-    private Boolean role;
 
     private Boolean status;
 

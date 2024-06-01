@@ -1,10 +1,7 @@
 package com.backend.androidProjectBE.Entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 import java.util.Set;
@@ -12,6 +9,7 @@ import java.util.Set;
 @Entity(name = "brands")
 @Data
 @Builder
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 public class Brands {
@@ -23,4 +21,13 @@ public class Brands {
 
     @OneToMany(mappedBy = "brands")
     private List<Vehicles> listBrand;
+
+    @Override
+    public String toString() {
+        return "Brand{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
 }

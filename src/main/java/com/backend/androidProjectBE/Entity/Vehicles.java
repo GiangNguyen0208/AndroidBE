@@ -1,10 +1,7 @@
 package com.backend.androidProjectBE.Entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Set;
 
@@ -14,16 +11,23 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Vehicles {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    private String name;
 
     private String type;
 
     private Boolean status;
 
     private Double price;
+
+    private String desc;
+
+    private int quantity;
 
     @ManyToOne
     @JoinColumn(name = "discount_id")
@@ -50,4 +54,15 @@ public class Vehicles {
 
     @OneToMany(mappedBy = "vehicles")
     private Set<Rentals> rentalVehicles;
+    @Override
+    public String toString() {
+        return "Vehicle{" +
+                "id=" + id +
+                ", type='" + type + '\'' +
+                ", status=" + status +
+                ", price=" + price +
+                ", brand=" + brands +
+                '}';
+    }
+
 }

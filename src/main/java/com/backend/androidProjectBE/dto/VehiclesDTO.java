@@ -14,6 +14,8 @@ public class VehiclesDTO {
 
     private String type;
 
+    private String name;
+
     private Boolean status;
 
     private double price;
@@ -33,5 +35,19 @@ public class VehiclesDTO {
         this.imageDTO = new ImageDTO();
         this.brandDTO = new BrandDTO();
         this.colorDTO = new ColorDTO();
+    }
+    @Override
+    public String toString() {
+        return "VehiclesDTO{" +
+                "id=" + id +
+                ", type='" + type + '\'' +
+                ", status=" + status +
+                ", price=" + price +
+                ", discountDTO=" + discountDTO +
+                ", colorDTO=" + colorDTO +
+                ", brandDTO=" + brandDTO +
+                ", modelDTO=" + modelDTO +
+                ", imageDTO=" + imageDTO +
+                '}';
     }
 }

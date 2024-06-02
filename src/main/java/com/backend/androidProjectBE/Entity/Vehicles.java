@@ -54,15 +54,11 @@ public class Vehicles {
 
     @OneToMany(mappedBy = "vehicles")
     private Set<Rentals> rentalVehicles;
-    @Override
-    public String toString() {
-        return "Vehicle{" +
-                "id=" + id +
-                ", type='" + type + '\'' +
-                ", status=" + status +
-                ", price=" + price +
-                ", brand=" + brands +
-                '}';
-    }
+
+    @OneToMany(mappedBy = "vehicles")
+    private Set<OrderItems> orderItems;
+
+    @OneToMany(mappedBy = "vehicles")
+    private Set<CartItems> cartItems;
 
 }

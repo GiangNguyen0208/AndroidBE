@@ -2,7 +2,9 @@ package com.backend.androidProjectBE.Entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Set;
 
@@ -23,4 +25,8 @@ public class Rentals {
 
     @OneToMany(mappedBy = "rentals")
     private Set<Orders> orderRental;
+
+    @OneToMany(mappedBy = "rentals")
+    private Set<CartItems> cartItems;
+
 }

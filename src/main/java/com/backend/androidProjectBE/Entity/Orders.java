@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.Set;
 
 @Entity(name = "orders")
 @Data
@@ -12,7 +13,6 @@ public class Orders {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "date_create")
     private Date dateCreate;
 
     @ManyToOne
@@ -26,4 +26,7 @@ public class Orders {
     @ManyToOne
     @JoinColumn(name = "payment_id")
     private Payments payments;
+
+    @OneToMany(mappedBy = "orders")
+    private Set<OrderItems> orderItems;
 }

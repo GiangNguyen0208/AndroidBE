@@ -16,4 +16,5 @@ public interface VehiclesServiceImp {
     List<VehiclesDTO> getVehiclesByType(String type);
     List<VehiclesDTO> getVehiclesByTxtSearch(String txtSearch);
 
+
 }

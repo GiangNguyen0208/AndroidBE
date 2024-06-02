@@ -9,7 +9,6 @@ import java.util.Set;
 @Entity(name = "brands")
 @Data
 @Builder
-@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 public class Brands {

@@ -1,14 +1,12 @@
 package com.backend.androidProjectBE.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
 @Data
-
+//@Builder
+@ToString
 public class VehiclesDTO {
     private int id;
 
@@ -35,19 +33,5 @@ public class VehiclesDTO {
         this.imageDTO = new ImageDTO();
         this.brandDTO = new BrandDTO();
         this.colorDTO = new ColorDTO();
-    }
-    @Override
-    public String toString() {
-        return "VehiclesDTO{" +
-                "id=" + id +
-                ", type='" + type + '\'' +
-                ", status=" + status +
-                ", price=" + price +
-                ", discountDTO=" + discountDTO +
-                ", colorDTO=" + colorDTO +
-                ", brandDTO=" + brandDTO +
-                ", modelDTO=" + modelDTO +
-                ", imageDTO=" + imageDTO +
-                '}';
     }
 }

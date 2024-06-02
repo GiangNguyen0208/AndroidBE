@@ -31,6 +31,8 @@ public class Users {
 
     private String password;
 
+    private String address;
+
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Roles roles;
@@ -50,4 +52,13 @@ public class Users {
     @OneToMany(mappedBy = "users")
     private Set<Rates> rateUser;
 
+    @OneToMany(mappedBy = "users")
+    private Set<Carts> carts;
+
+    @Override
+    public String toString() {
+        return "Users{" +
+                "id=" + id +
+                '}';
+    }
 }

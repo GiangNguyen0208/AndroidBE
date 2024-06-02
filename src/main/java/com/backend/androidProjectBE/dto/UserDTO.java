@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Data
 public class UserDTO {
-    private int id;
+    private Integer  id;
 
     private String username;
 
@@ -19,7 +19,7 @@ public class UserDTO {
 
     private Boolean gender;
 
-    private int phone;
+    private Integer  phone;
 
     private String email;
 
@@ -30,4 +30,5 @@ public class UserDTO {
     private Boolean status;
 
     private Date birth;
+
 }

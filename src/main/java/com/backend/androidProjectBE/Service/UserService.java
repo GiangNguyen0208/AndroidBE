@@ -7,31 +7,31 @@ import com.backend.androidProjectBE.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService implements UserServiceImp {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
-//    @Override
-//    public List<UserDTO> getAllUser() {
-//        List<Users> listUser = userRepository.findAll();
-//        List<UserDTO> userDTOList = new ArrayList<>();
-//        for (Users u: listUser) {
-//            UserDTO userDTO = new UserDTO();
-//            userDTO.setId(u.getId());
-//            userDTO.setEmail(u.getEmail());
-//            userDTO.setBirthDay(u.getBirthDay());
-//            userDTO.setPassword(u.getPassword());
-//
-//            userDTOList.add(userDTO);
-//        }
-//        return userDTOList;
-//    }
+    @Override
+    public Users updateUser(int id, UserDTO userDTO) {
+        Optional<Users> userOptional = Optional.ofNullable(userRepository.findById(id));
+        if (!userOptional.isPresent()) {
+            throw new RuntimeException("User not found");
+        }
 
+        Users user = userOptional.get();
+        user.setEmail(userDTO.getEmail());
+        user.setFirstname(userDTO.getFirstname());
+        user.setLastname(userDTO.getLastname());
+        user.setPassword(user.getPassword());
+        user.setGender(userDTO.getGender());
+        user.setPhone(userDTO.getPhone());
+        user.setStatus(true);
+        user.setBirthDay(userDTO.getBirthDay());
 
-
+        return userRepository.save(user);
+    }
 }

@@ -9,11 +9,11 @@ import java.util.Date;
 public class UserDTO {
     private Integer  id;
 
-    private String username;
-
     private String firstname;
 
     private String lastname;
+
+    private String email;
 
     private String password;
 
@@ -21,14 +21,6 @@ public class UserDTO {
 
     private Integer  phone;
 
-    private String email;
-
     private Date birthDay;
-
-    private Boolean role;
-
-    private Boolean status;
-
-    private Date birth;
 
 }

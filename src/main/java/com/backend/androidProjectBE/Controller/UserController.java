@@ -15,10 +15,16 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @GetMapping("/users/{id}")
+    public ResponseEntity<UserDTO> getUser(@PathVariable int id) {
+        UserDTO user = userService.loadUsers(id);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
     @PutMapping("/users/{id}")
     public ResponseEntity<Users> updateUser(@PathVariable int id, @RequestBody UserDTO userDTO) {
         Users updatedUser = userService.updateUser(id, userDTO);
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
-
 }
+

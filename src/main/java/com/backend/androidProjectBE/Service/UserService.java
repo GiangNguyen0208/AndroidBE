@@ -23,15 +23,36 @@ public class UserService implements UserServiceImp {
         }
 
         Users user = userOptional.get();
-        user.setEmail(userDTO.getEmail());
         user.setFirstname(userDTO.getFirstname());
         user.setLastname(userDTO.getLastname());
+        user.setEmail(userDTO.getEmail());
         user.setPassword(user.getPassword());
         user.setGender(userDTO.getGender());
         user.setPhone(userDTO.getPhone());
-        user.setStatus(true);
         user.setBirthDay(userDTO.getBirthDay());
 
         return userRepository.save(user);
     }
+
+    @Override
+    public UserDTO loadUsers(int id) {
+        Optional<Users> userOptional = Optional.ofNullable(userRepository.findById(id));
+        if (userOptional.isPresent()) {
+            Users user = userOptional.get();
+            UserDTO userResponseDTO = new UserDTO();
+            userResponseDTO.setFirstname(user.getFirstname());
+            userResponseDTO.setLastname(user.getLastname());
+            userResponseDTO.setEmail(user.getEmail());
+            userResponseDTO.setPassword(user.getPassword());
+            userResponseDTO.setPhone(user.getPhone());
+            userResponseDTO.setGender(user.getGender());
+            userResponseDTO.setBirthDay(user.getBirthDay());
+
+            return userResponseDTO;
+        } else {
+            throw new RuntimeException("User not found");
+    }
+}
+
+
 }

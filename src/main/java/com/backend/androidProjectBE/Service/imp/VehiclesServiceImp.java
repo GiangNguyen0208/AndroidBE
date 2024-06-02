@@ -13,5 +13,8 @@ public interface VehiclesServiceImp {
     List<VehiclesDTO> getVehiclesByBrand(int id);
     List<VehiclesDTO> getVehiclesByModel(int id);
     List<VehiclesDTO> getVehiclesByPrice(double minPrice, double maxPrice);
+    List<VehiclesDTO> getVehiclesByType(String type);
+    List<VehiclesDTO> getVehiclesByTxtSearch(String txtSearch);
+
 
 }

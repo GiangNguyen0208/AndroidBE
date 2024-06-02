@@ -1,16 +1,12 @@
 package com.backend.androidProjectBE.Controller;
 
 import com.backend.androidProjectBE.Entity.Users;
-import com.backend.androidProjectBE.Service.UserService;
 import com.backend.androidProjectBE.Service.imp.RegisterServiceImp;
-import com.backend.androidProjectBE.dto.UserDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.configurationprocessor.json.JSONException;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 //import org.springframework.security.crypto.bcrypt.BCrypt;

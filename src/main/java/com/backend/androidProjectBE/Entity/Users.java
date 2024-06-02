@@ -21,17 +21,17 @@ public class Users {
 
     private Boolean gender;
 
-    private Integer phone;
+    private String phone;
 
     private String email;
 
     private Date birthDay;
 
-    private Boolean role;
-
     private Boolean status;
 
     private String password;
+
+    private String address;
 
     @ManyToOne
     @JoinColumn(name = "role_id")
@@ -52,4 +52,13 @@ public class Users {
     @OneToMany(mappedBy = "users")
     private Set<Rates> rateUser;
 
+    @OneToMany(mappedBy = "users")
+    private Set<Carts> carts;
+
+    @Override
+    public String toString() {
+        return "Users{" +
+                "id=" + id +
+                '}';
+    }
 }

@@ -10,7 +10,6 @@ import java.util.Date;
 
 
 @Data
-
 public class UserDTO {
     private int id;
 
@@ -33,7 +32,10 @@ public class UserDTO {
     private RoleDTO roleDTO;
 
     private Boolean status;
+
+    private String address;
     public UserDTO() {
         this.roleDTO = new RoleDTO();  // Khởi tạo RoleDTO
     }
+
 }

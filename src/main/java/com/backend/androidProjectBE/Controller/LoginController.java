@@ -20,7 +20,6 @@ public class LoginController {
 
     @PostMapping("/user/signin")
     public ResponseEntity signin(@RequestBody UserLogin users) {
-        System.out.println("Triggered!");
         if (loginServiceImp.checkLogin(users.getEmail(), users.getPassword())) {
             return new ResponseEntity<>(users, HttpStatus.OK);
         } else {

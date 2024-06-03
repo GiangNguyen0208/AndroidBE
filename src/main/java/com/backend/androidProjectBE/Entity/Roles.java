@@ -6,8 +6,8 @@ import lombok.Data;
 import java.util.Date;
 import java.util.Set;
 
-@Data
 @Entity(name = "roles")
+@Data
 public class Roles {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

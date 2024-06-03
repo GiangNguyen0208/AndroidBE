@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 //@CrossOrigin("*")
 @RequestMapping("/api/v1")
 public class RentalController {
-    @GetMapping("/rental/")
+    @GetMapping("/rentallmao/")
     public ResponseEntity<?> getAllVehicle() {
         return null;
     }

@@ -3,8 +3,8 @@ package com.backend.androidProjectBE.Entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
-@Data
 @Entity(name = "order_items")
+@Data
 public class OrderItems {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

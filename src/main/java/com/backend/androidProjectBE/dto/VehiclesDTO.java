@@ -18,20 +18,15 @@ public class VehiclesDTO {
 
     private double price;
 
-    private DiscountDTO discountDTO;
+    private double discount;
 
-    private ColorDTO colorDTO;
+    private String colorName;
 
-    private BrandDTO brandDTO;
+    private String brandName;
 
-    private ModelDTO modelDTO;
+    private String model;
 
-    private ImageDTO imageDTO;
+    private String imageUrl;
     public VehiclesDTO() {
-        this.discountDTO = new DiscountDTO();
-        this.modelDTO = new ModelDTO();
-        this.imageDTO = new ImageDTO();
-        this.brandDTO = new BrandDTO();
-        this.colorDTO = new ColorDTO();
     }
 }

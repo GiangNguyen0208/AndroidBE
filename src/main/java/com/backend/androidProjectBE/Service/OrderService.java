@@ -1,10 +1,8 @@
 package com.backend.androidProjectBE.Service;
 
 import com.backend.androidProjectBE.Entity.OrderItems;
-import com.backend.androidProjectBE.Entity.Orders;
-import com.backend.androidProjectBE.Repository.OrderRepository;
+import com.backend.androidProjectBE.Repository.OrderItemsRepository;
 import com.backend.androidProjectBE.Service.imp.OrderServiceImp;
-import com.backend.androidProjectBE.dto.OrderDTO;
 import com.backend.androidProjectBE.dto.OrderItemDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,11 +13,11 @@ import java.util.List;
 @Service
 public class OrderService implements OrderServiceImp {
     @Autowired
-    OrderRepository orderRepository;
+    OrderItemsRepository orderItemsRepository;
 
     @Override
     public List<OrderItemDTO> getAllOrderItem() {
-        List<OrderItems> orderItemsList = orderRepository.findAll();
+        List<OrderItems> orderItemsList = orderItemsRepository.findAll();
         List<OrderItemDTO> orderItemDTOS = new ArrayList<>();
 
         for (OrderItems o : orderItemsList) {
@@ -34,7 +32,7 @@ public class OrderService implements OrderServiceImp {
     }
     @Override
     public OrderItemDTO addOrderItem(OrderItems orderItems) {
-        OrderItems items = orderRepository.save(orderItems);
+        OrderItems items = orderItemsRepository.save(orderItems);
         OrderItemDTO orderItemDTO = new OrderItemDTO();
         orderItemDTO.setVehicleId(items.getVehicles().getId());
         orderItemDTO.setName(items.getVehicles().getName());
@@ -46,6 +44,6 @@ public class OrderService implements OrderServiceImp {
 
     @Override
     public void removeOrderItem(int id) {
-        orderRepository.deleteById(id);
+        orderItemsRepository.deleteById(id);
     }
 }

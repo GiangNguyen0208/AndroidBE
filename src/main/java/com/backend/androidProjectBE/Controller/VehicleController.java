@@ -24,32 +24,11 @@ public class VehicleController {
 
     @GetMapping("/product/detail")
     public ResponseEntity<?> getDetail(@RequestParam int id) {
-        Vehicles vehicles = vehiclesServiceImp.findById(id);
+        VehiclesDTO vehicles = vehiclesServiceImp.findById(id);
         if (vehicles == null) {
             return new ResponseEntity<>("Vehicle not found", HttpStatus.NOT_FOUND);
         }
-        VehiclesDTO vehiclesDetail = new VehiclesDTO();
-        if (!vehicles.getStatus()) {
-            vehiclesDetail.setPrice(vehicles.getPrice());
-            vehiclesDetail.setType(vehicles.getType());
-            vehiclesDetail.setId(vehicles.getId());
-            if (vehicles.getDiscounts() != null) {
-                vehiclesDetail.getDiscountDTO().setValue(vehicles.getDiscounts().getValue());
-            }
-            if (vehicles.getModels() != null) {
-                vehiclesDetail.getModelDTO().setName(vehicles.getModels().getName());
-            }
-            if (vehicles.getImages() != null) {
-                vehiclesDetail.getImageDTO().setImgLink(vehicles.getImages().getImgLink());
-            }
-            if (vehicles.getBrands() != null) {
-                vehiclesDetail.getBrandDTO().setName(vehicles.getBrands().getName());
-            }
-            if (vehicles.getColors() != null) {
-                vehiclesDetail.getColorDTO().setNameColor(vehicles.getColors().getNameColor());
-            }
-        }
-        return new ResponseEntity<>(vehiclesDetail, HttpStatus.OK);
+        return new ResponseEntity<>(vehicles, HttpStatus.OK);
     }
     @GetMapping("/product")
     public ResponseEntity<?> getAllVehicle() {

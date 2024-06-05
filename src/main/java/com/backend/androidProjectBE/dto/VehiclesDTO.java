@@ -1,6 +1,7 @@
 package com.backend.androidProjectBE.dto;
 
 import lombok.*;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 
 import java.util.List;
 
@@ -13,6 +14,8 @@ public class VehiclesDTO {
     private String type;
 
     private String name;
+
+    private String about;
 
     private Boolean status;
 
@@ -27,6 +30,8 @@ public class VehiclesDTO {
     private String model;
 
     private String imageUrl;
+
     public VehiclesDTO() {
     }
+
 }

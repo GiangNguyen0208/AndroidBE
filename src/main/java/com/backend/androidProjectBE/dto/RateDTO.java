@@ -17,13 +17,13 @@ import java.util.List;
 @NoArgsConstructor
 public class RateDTO {
 
-    private String rateComment;
-
     private int rateScore;
 
     private Date dateCreate;
 
-//    private List<UserDTO> users;
+    private String rateComment;
 
-//    private List<VehiclesDTO> vehicles;
+    private UserDTO commentUser;
+
+    private VehiclesDTO commentVehicles;
 }

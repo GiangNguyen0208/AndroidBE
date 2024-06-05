@@ -42,7 +42,6 @@ public class VehicleService implements VehiclesServiceImp {
         List<VehiclesDTO> vehiclesDTOList = new ArrayList<>();
         for (Vehicles vehicles : vehiclesList) {
             VehiclesDTO vehiclesDTO = map(vehicles);
-
             vehiclesDTOList.add(vehiclesDTO);
         }
         return vehiclesDTOList;
@@ -55,7 +54,6 @@ public class VehicleService implements VehiclesServiceImp {
         List<VehiclesDTO> listVehicleDTOByBrandName = new ArrayList<>();
         for (Vehicles vehicles : listVehicleByBrandName) {
             VehiclesDTO vehiclesDTO = map(vehicles);
-
             listVehicleDTOByBrandName.add(vehiclesDTO);
         }
         return listVehicleDTOByBrandName;
@@ -68,7 +66,6 @@ public class VehicleService implements VehiclesServiceImp {
         List<VehiclesDTO> listVehicleDTOByModel = new ArrayList<>();
         for (Vehicles vehicles : listVehicleByModel) {
             VehiclesDTO vehiclesDTO = map(vehicles);
-
             listVehicleDTOByModel.add(vehiclesDTO);
         }
         return listVehicleDTOByModel;
@@ -113,6 +110,7 @@ public class VehicleService implements VehiclesServiceImp {
         result.setId(object.getId());
         result.setType(object.getType());
         result.setName(object.getName());
+        result.setAbout(object.getAbout());
         result.setPrice(object.getPrice());
         result.setStatus(object.getStatus());
         result.setDiscount(object.getDiscounts().getValue());

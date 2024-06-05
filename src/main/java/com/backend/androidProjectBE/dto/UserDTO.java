@@ -10,6 +10,7 @@ import java.util.Date;
 
 
 @Data
+@Builder
 public class UserDTO {
     private int id;
 
@@ -29,13 +30,12 @@ public class UserDTO {
 
     private Date birthDay;
 
-    private RoleDTO roleDTO;
+    private String roleName;
 
     private Boolean status;
 
     private String address;
     public UserDTO() {
-        this.roleDTO = new RoleDTO();  // Khởi tạo RoleDTO
     }
 
 }

@@ -1,9 +1,11 @@
 package com.backend.androidProjectBE.Service;
 
 import com.backend.androidProjectBE.Entity.OrderItems;
+import com.backend.androidProjectBE.Entity.Vehicles;
 import com.backend.androidProjectBE.Repository.OrderItemsRepository;
 import com.backend.androidProjectBE.Service.imp.OrderServiceImp;
 import com.backend.androidProjectBE.dto.OrderItemDTO;
+import com.backend.androidProjectBE.dto.VehiclesDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,11 +23,7 @@ public class OrderService implements OrderServiceImp {
         List<OrderItemDTO> orderItemDTOS = new ArrayList<>();
 
         for (OrderItems o : orderItemsList) {
-            OrderItemDTO orderItemDTO = new OrderItemDTO();
-            orderItemDTO.setVehicleId(o.getVehicles().getId());
-            orderItemDTO.setName(o.getVehicles().getName());
-            orderItemDTO.setPrice(o.getVehicles().getPrice());
-            orderItemDTO.setBrand(o.getVehicles().getBrands().getName());
+            OrderItemDTO orderItemDTO = map(o);
             orderItemDTOS.add(orderItemDTO);
         }
         return orderItemDTOS;
@@ -33,17 +31,21 @@ public class OrderService implements OrderServiceImp {
     @Override
     public OrderItemDTO addOrderItem(OrderItems orderItems) {
         OrderItems items = orderItemsRepository.save(orderItems);
-        OrderItemDTO orderItemDTO = new OrderItemDTO();
-        orderItemDTO.setVehicleId(items.getVehicles().getId());
-        orderItemDTO.setName(items.getVehicles().getName());
-        orderItemDTO.setPrice(items.getVehicles().getPrice());
-        orderItemDTO.setBrand(items.getVehicles().getBrands().getName());
-
+        OrderItemDTO orderItemDTO = map(orderItems);
         return orderItemDTO;
     }
 
     @Override
     public void removeOrderItem(int id) {
         orderItemsRepository.deleteById(id);
+    }
+
+    private OrderItemDTO map(OrderItems object) {
+        OrderItemDTO orderItemDTO = new OrderItemDTO();
+        orderItemDTO.setVehicleId(object.getVehicles().getId());
+        orderItemDTO.setName(object.getVehicles().getName());
+        orderItemDTO.setPrice(object.getVehicles().getPrice());
+        orderItemDTO.setBrand(object.getVehicles().getBrands().getName());
+        return orderItemDTO;
     }
 }

@@ -30,5 +30,4 @@ public class Payments {
     @JoinColumn(name = "card_id")
     private Cards cards;
 
-
 }

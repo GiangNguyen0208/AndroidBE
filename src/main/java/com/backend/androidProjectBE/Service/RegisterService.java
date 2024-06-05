@@ -17,12 +17,13 @@ public class RegisterService implements RegisterServiceImp {
     @Autowired
     RolesRepository rolesRepository;
 
+
     @Override
     public boolean registerNewUserServiceMethod(Users users) {
         try {
-
             Roles role = rolesRepository.findById(1).orElseThrow(() -> new RuntimeException("Role not found"));
             users.setRoles(role); 
+            users.setStatus(false);
             
             userRepository.save(users);
             return true;

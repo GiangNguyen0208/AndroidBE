@@ -43,7 +43,7 @@ public class UserController {
     public ResponseEntity<UserStatus> uploadStatusLicense(@PathVariable int id) {
         UserStatus status = userService.uploadLicenseStatus(id);
         return new ResponseEntity<>(status, HttpStatus.OK);
-    } 
+    }
 
     @PostMapping("/users/{id}/upload")
     public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file, @PathVariable int id) {
@@ -57,7 +57,7 @@ public class UserController {
         message = "Could not upload the file: " + file.getOriginalFilename() + ". Error: " + e.getMessage();
         return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
         }
-    }  
+    }
 // admin
     @GetMapping("/admin/files")
     public ResponseEntity<List<FileInfo>> getListFiles() {
@@ -78,6 +78,10 @@ public class UserController {
         Resource file = userService.load(filename);
         return ResponseEntity.ok()
             .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+    }
+    @GetMapping("/admin/getAllUser")
+    public ResponseEntity<?> getAllUser() {
+        return new ResponseEntity<>(userServiceImp.getAllUsers(), HttpStatus.OK);
     }
 }
 

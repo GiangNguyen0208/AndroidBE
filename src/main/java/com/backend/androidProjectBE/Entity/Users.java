@@ -13,35 +13,25 @@ public class Users {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "username")
     private String username;
 
-    @Column(name = "firstname")
     private String firstname;
 
-    @Column(name = "lastname")
     private String lastname;
 
-    @Column(name = "gender")
     private Boolean gender;
 
-    @Column(name = "phone")
-    private Integer phone;
+    private String phone;
 
-    @Column(name = "email")
     private String email;
 
-    @Column(name = "birthDay")
     private Date birthDay;
 
-    @Column(name = "role")
-    private Boolean role;
-
-    @Column(name = "status")
     private Boolean status;
 
-    @Column(name = "password")
     private String password;
+
+    private String address;
 
     @ManyToOne
     @JoinColumn(name = "role_id")
@@ -62,4 +52,13 @@ public class Users {
     @OneToMany(mappedBy = "users")
     private Set<Rates> rateUser;
 
+    @OneToMany(mappedBy = "users")
+    private Set<Carts> carts;
+
+    @Override
+    public String toString() {
+        return "Users{" +
+                "id=" + id +
+                '}';
+    }
 }

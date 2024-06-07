@@ -2,18 +2,22 @@ package com.backend.androidProjectBE.Entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 
 import java.util.Set;
 
-@Entity(name = "discounts")
+@Entity(name = "carts")
 @Data
-public class Discounts {
+public class Carts {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private Double value;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private Users users;
 
-    @OneToMany(mappedBy = "discounts")
-    private Set<Vehicles> listDiscount;
+    @OneToMany(mappedBy = "carts")
+    Set<CartItems> carts;
+
 }

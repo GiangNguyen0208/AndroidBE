@@ -8,13 +8,21 @@ import lombok.Data;
 @Data
 public class LicenseVehicles {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "imgLicense")
+    private String numberCode;
+
+    private String fullname;
+
+    private Date birthDay;
+
+    private String rankLicense;
+
     private String imgLicense;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private Users users;
+
 }

@@ -2,7 +2,9 @@ package com.backend.androidProjectBE.Entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Set;
 
@@ -10,13 +12,11 @@ import java.util.Set;
 @Data
 public class Rentals {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "rental_date")
     private Date rentalDate;
 
-    @Column(name = "return_date")
     private Date returnDate;
 
     @ManyToOne
@@ -25,4 +25,8 @@ public class Rentals {
 
     @OneToMany(mappedBy = "rentals")
     private Set<Orders> orderRental;
+
+    @OneToMany(mappedBy = "rentals")
+    private Set<CartItems> cartItems;
+
 }

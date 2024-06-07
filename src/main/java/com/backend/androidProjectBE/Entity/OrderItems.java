@@ -3,27 +3,20 @@ package com.backend.androidProjectBE.Entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.Date;
-
-@Entity(name = "rates")
 @Data
-public class Rates {
+@Entity(name = "order_items")
+public class OrderItems {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String rateComment;
-
-    private int rateScore;
-
-    private Date dateCreate;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private Users users;
+    private double price;
 
     @ManyToOne
     @JoinColumn(name = "vehicle_id")
     private Vehicles vehicles;
 
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Orders orders;
 }

@@ -9,12 +9,12 @@ import java.util.Set;
 @Data
 public class Images {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "imgLink")
     private String imgLink;
 
     @OneToMany(mappedBy = "images")
     private Set<Vehicles> listImg;
+
 }

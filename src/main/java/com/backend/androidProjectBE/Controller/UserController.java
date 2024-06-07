@@ -59,7 +59,7 @@ public class UserController {
         }
     }  
 // admin
-    @GetMapping("/files")
+    @GetMapping("/admin/files")
     public ResponseEntity<List<FileInfo>> getListFiles() {
         List<FileInfo> fileInfos = userService.loadAll().map(path -> {
         String filename = path.getFileName().toString();
@@ -72,7 +72,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(fileInfos);
     }
 //admin
-    @GetMapping("/files/{filename:.+}")
+    @GetMapping("/users/{id}/files/{filename:.+}")
     @ResponseBody
     public ResponseEntity<Resource> getFile(@PathVariable String filename) {
         Resource file = userService.load(filename);

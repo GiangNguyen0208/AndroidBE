@@ -90,7 +90,7 @@ public class UserService implements UserServiceImp {
             Users user = userOptional.get();
             UserStatus userResponseStatus = new UserStatus();
             userResponseStatus.setStatus(user.getStatus());
-        
+            
             return userResponseStatus;
         } else {
             throw new RuntimeException("The Bug");

@@ -8,13 +8,12 @@ import java.awt.print.Pageable;
 import java.util.List;
 
 public interface VehiclesServiceImp {
-    Vehicles findById(int id);
+    VehiclesDTO findById(int id);
     List<VehiclesDTO> getAllVehicles();
-    List<VehiclesDTO> getVehiclesByBrand(int id);
+    List<VehiclesDTO> getVehiclesByBrand(String brandName);
     List<VehiclesDTO> getVehiclesByModel(int id);
     List<VehiclesDTO> getVehiclesByPrice(double minPrice, double maxPrice);
     List<VehiclesDTO> getVehiclesByType(String type);
     List<VehiclesDTO> getVehiclesByTxtSearch(String txtSearch);
-
 
 }

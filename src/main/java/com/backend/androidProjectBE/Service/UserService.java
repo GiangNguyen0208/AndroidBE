@@ -15,6 +15,11 @@ public class UserService implements UserServiceImp {
 
     @Autowired
     UserRepository userRepository;
+
+    @Override
+    public List<UserDTO> getAllUsers() {
+        return List.of();
+    }
 //
 //    @Override
 //    public List<UserDTO> getAllUser() {

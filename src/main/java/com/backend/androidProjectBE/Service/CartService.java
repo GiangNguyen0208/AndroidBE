@@ -5,7 +5,6 @@ import com.backend.androidProjectBE.Entity.Images;
 import com.backend.androidProjectBE.Entity.Rentals;
 import com.backend.androidProjectBE.Entity.Vehicles;
 import com.backend.androidProjectBE.Repository.CartRepository;
-import com.backend.androidProjectBE.Repository.ImageRepository;
 import com.backend.androidProjectBE.Repository.RentalsRepository;
 import com.backend.androidProjectBE.Repository.VehiclesRepository;
 import com.backend.androidProjectBE.Service.imp.CartServiceImp;

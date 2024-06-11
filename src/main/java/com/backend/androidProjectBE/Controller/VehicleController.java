@@ -25,9 +25,6 @@ public class VehicleController {
     @GetMapping("/product/detail")
     public ResponseEntity<?> getDetail(@RequestParam int id) {
         VehiclesDTO vehicles = vehiclesServiceImp.findById(id);
-        if (vehicles == null) {
-            return new ResponseEntity<>("Vehicle not found", HttpStatus.NOT_FOUND);
-        }
         return new ResponseEntity<>(vehicles, HttpStatus.OK);
     }
     @GetMapping("/product")
@@ -35,8 +32,8 @@ public class VehicleController {
         return new ResponseEntity<>(vehiclesServiceImp.getAllVehicles(), HttpStatus.OK);
     }
     @GetMapping("/product/brand")
-    public ResponseEntity<?> getVehiclesByBrand(@RequestParam int id) {
-        List<VehiclesDTO> vehiclesDTOs = vehiclesServiceImp.getVehiclesByBrand(id);
+    public ResponseEntity<?> getVehiclesByBrand(@RequestParam String brandName) {
+        List<VehiclesDTO> vehiclesDTOs = vehiclesServiceImp.getVehiclesByBrand(brandName);
         return ResponseEntity.ok().body(vehiclesDTOs);
     }
     @GetMapping("/product/model")

@@ -1,13 +1,12 @@
 package com.backend.androidProjectBE.dto;
 
-import lombok.Builder;
+
 import lombok.Data;
 
 @Data
-@Builder
 public class UserLogin {
+    private int id;
     private String email;
     private String password;
-    private Integer role;
-
+    private String roles;
 }

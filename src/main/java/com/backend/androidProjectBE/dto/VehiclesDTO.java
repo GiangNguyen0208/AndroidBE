@@ -1,13 +1,15 @@
 package com.backend.androidProjectBE.dto;
 
 import lombok.*;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
 
+import java.util.Date;
 import java.util.List;
 
 @Data
-//@Builder
+@Builder
 @ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class VehiclesDTO {
     private int id;
 
@@ -15,23 +17,25 @@ public class VehiclesDTO {
 
     private String name;
 
-    private String about;
-
     private Boolean status;
 
     private double price;
 
     private double discount;
 
-    private String colorName;
+    private String color;
 
-    private String brandName;
+    private String brand;
 
     private String model;
 
-    private String imageUrl;
+    private String image;
 
-    public VehiclesDTO() {
-    }
+    private Date rentalDate;
 
+    private Date returnDate;
+
+    private String desc;
+
+    private Integer day;
 }

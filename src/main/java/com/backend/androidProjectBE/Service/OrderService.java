@@ -1,11 +1,14 @@
 package com.backend.androidProjectBE.Service;
 
+import com.backend.androidProjectBE.Entity.CartItems;
 import com.backend.androidProjectBE.Entity.OrderItems;
-import com.backend.androidProjectBE.Entity.Vehicles;
-import com.backend.androidProjectBE.Repository.OrderItemsRepository;
+import com.backend.androidProjectBE.Entity.Orders;
+import com.backend.androidProjectBE.Repository.CartRepository;
+import com.backend.androidProjectBE.Repository.OrderRepository;
 import com.backend.androidProjectBE.Service.imp.OrderServiceImp;
+import com.backend.androidProjectBE.dto.CartItemDTO;
+import com.backend.androidProjectBE.dto.OrderDTO;
 import com.backend.androidProjectBE.dto.OrderItemDTO;
-import com.backend.androidProjectBE.dto.VehiclesDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,37 +18,46 @@ import java.util.List;
 @Service
 public class OrderService implements OrderServiceImp {
     @Autowired
-    OrderItemsRepository orderItemsRepository;
+    OrderRepository orderRepository;
+
+    @Autowired
+    CartRepository  cartRepository;
+
 
     @Override
-    public List<OrderItemDTO> getAllOrderItem() {
-        List<OrderItems> orderItemsList = orderItemsRepository.findAll();
-        List<OrderItemDTO> orderItemDTOS = new ArrayList<>();
-
-        for (OrderItems o : orderItemsList) {
-            OrderItemDTO orderItemDTO = map(o);
-            orderItemDTOS.add(orderItemDTO);
-        }
-        return orderItemDTOS;
+    public OrderItems addOrderItem(OrderItems orderItem) {
+        return orderRepository.save(orderItem);
     }
+
     @Override
-    public OrderItemDTO addOrderItem(OrderItems orderItems) {
-        OrderItems items = orderItemsRepository.save(orderItems);
-        OrderItemDTO orderItemDTO = map(orderItems);
-        return orderItemDTO;
+    public List<OrderItems> findAll() {
+        List<OrderItems> orderItemsList = orderRepository.findAll();
+        return orderItemsList;
     }
 
     @Override
     public void removeOrderItem(int id) {
-        orderItemsRepository.deleteById(id);
+        orderRepository.deleteById(id);
     }
 
-    private OrderItemDTO map(OrderItems object) {
-        OrderItemDTO orderItemDTO = new OrderItemDTO();
-        orderItemDTO.setVehicleId(object.getVehicles().getId());
-        orderItemDTO.setName(object.getVehicles().getName());
-        orderItemDTO.setPrice(object.getVehicles().getPrice());
-        orderItemDTO.setBrand(object.getVehicles().getBrands().getName());
+
+    // Thanh toan
+    @Override
+    public OrderItemDTO getCartItemToPay(int cartItemId) {
+        CartItems cartItems = cartRepository.findById(cartItemId);
+
+        OrderItemDTO orderItemDTO = OrderItemDTO.builder()
+                .vehicleid(cartItems.getVehicles().getId())
+                .nameVehicle(cartItems.getVehicles().getName())
+                .brandVehicle(cartItems.getVehicles().getBrands().getName())
+                .imageLink(cartItems.getVehicles().getImages().getImgLink())
+                .rentalDate(cartItems.getRentals().getRentalDate())
+                .returnDate(cartItems.getRentals().getReturnDate())
+                .rental_day(cartItems.getRental_day())
+                .address(cartItems.getAddress())
+                .phone(cartItems.getPhone())
+                .email(cartItems.getEmail())
+                .build();
         return orderItemDTO;
     }
 }

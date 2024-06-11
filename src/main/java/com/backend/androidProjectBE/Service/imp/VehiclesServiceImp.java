@@ -10,11 +10,10 @@ import java.util.List;
 public interface VehiclesServiceImp {
     VehiclesDTO findById(int id);
     List<VehiclesDTO> getAllVehicles();
-    List<VehiclesDTO> getVehiclesByBrand(int id);
+    List<VehiclesDTO> getVehiclesByBrand(String brandName);
     List<VehiclesDTO> getVehiclesByModel(int id);
     List<VehiclesDTO> getVehiclesByPrice(double minPrice, double maxPrice);
     List<VehiclesDTO> getVehiclesByType(String type);
     List<VehiclesDTO> getVehiclesByTxtSearch(String txtSearch);
-
 
 }

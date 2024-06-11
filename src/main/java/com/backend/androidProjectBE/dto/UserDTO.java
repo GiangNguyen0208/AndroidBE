@@ -1,18 +1,20 @@
 package com.backend.androidProjectBE.dto;
 
-import com.backend.androidProjectBE.Entity.Roles;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
 
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class UserDTO {
-    private int id;
+    private Integer  id;
 
     private String username;
 
@@ -20,22 +22,16 @@ public class UserDTO {
 
     private String lastname;
 
+    private String email;
+
     private String password;
 
     private Boolean gender;
 
-    private String phone;
-
-    private String email;
+    private String  phone;
 
     private Date birthDay;
 
     private String roleName;
-
-    private Boolean status;
-
-    private String address;
-    public UserDTO() {
-    }
 
 }

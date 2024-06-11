@@ -7,23 +7,34 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-//@CrossOrigin("*")
 @RequestMapping("/api/v1")
 public class LoginController {
 
+    private final LoginServiceImp loginServiceImp;
+
     @Autowired
-    // @Qualifier(ten Bean) --- Giup lay ra dung cai class tren IOC de su dung, trong TH co 2 class trung ten nhau, chir khac nhua ten Bean.
-    LoginServiceImp loginServiceImp;
+    public LoginController(LoginServiceImp loginServiceImp) {
+        this.loginServiceImp = loginServiceImp;
+    }
 
     @PostMapping("/user/signin")
-    public ResponseEntity signin(@RequestBody UserLogin users) {
-        if (loginServiceImp.checkLogin(users.getEmail(), users.getPassword())) {
-            return new ResponseEntity<>(users, HttpStatus.OK);
-        } else {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Please Register Before Login");
+    public ResponseEntity<?> signin(@RequestBody UserLogin userLogin) {
+        try {
+            String email = userLogin.getEmail();
+            String password = userLogin.getPassword();
+
+            if (loginServiceImp.checkLogin(email, password)) {
+                UserLogin responseUser = loginServiceImp.getUserByEmail(email);
+                if (responseUser == null) {
+                    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not found");
+                }
+                return ResponseEntity.ok(responseUser);
+            } else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Incorrect email or password");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while processing your request");
         }
     }
 }

@@ -3,40 +3,46 @@ package com.backend.androidProjectBE.Service;
 import com.backend.androidProjectBE.Entity.Users;
 import com.backend.androidProjectBE.Repository.UserRepository;
 import com.backend.androidProjectBE.Service.imp.LoginServiceImp;
-import com.backend.androidProjectBE.dto.UserDTO;
+import com.backend.androidProjectBE.dto.UserLogin;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-
-
-@Service    // Dua len Bean
+@Service
 public class LoginService implements LoginServiceImp {
+
+    private final UserRepository userRepository;
+
     @Autowired
-    UserRepository userRepository;
-    public List<UserDTO> getAllUser() {
-        List<Users> listUser = userRepository.findAll();
-        List<UserDTO> userDTOList = new ArrayList<>();
-        for (Users u: listUser) {
-            UserDTO userDTO = new UserDTO();
-            userDTO.setId(u.getId());
-            userDTO.setEmail(u.getEmail());
-            userDTO.setBirthDay(u.getBirthDay());
-            userDTO.setPassword(u.getPassword());
-
-            userDTOList.add(userDTO);
-        }
-        return userDTOList;
+    public LoginService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
-
 
     @Override
     public boolean checkLogin(String email, String password) {
-        BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
-        Users users = userRepository.findByEmail(email);
-        boolean isExist = bcrypt.matches(password, users.getPassword());
-        return isExist;
+        try {
+            Users user = userRepository.findByEmail(email);
+            return user != null && password.equals(user.getPassword());
+        } catch (Exception e) {
+            System.err.println("An error occurred while checking login: " + e.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public UserLogin getUserByEmail(String email) {
+        try {
+            Users user = userRepository.findByEmail(email);
+            if (user == null) {
+                return null;
+            }
+            UserLogin userLogin = new UserLogin();
+            userLogin.setId(user.getId());
+            userLogin.setEmail(user.getEmail());
+            userLogin.setRoles(user.getRoles().getName());
+            return userLogin;
+        } catch (Exception e) {
+            System.err.println("An error occurred while retrieving user details: " + e.getMessage());
+            return null;
+        }
     }
 }

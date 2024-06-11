@@ -1,35 +1,51 @@
 package com.backend.androidProjectBE.Controller;
 
 
-import com.backend.androidProjectBE.Entity.CartItems;
 import com.backend.androidProjectBE.Service.imp.CartServiceImp;
+import com.backend.androidProjectBE.Service.imp.VehiclesServiceImp;
 import com.backend.androidProjectBE.dto.CartItemDTO;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 @RequestMapping("/api/v1")
 public class CartController {
     @Autowired
     CartServiceImp cartServiceImp;
+
+    @Autowired
+    VehiclesServiceImp vehiclesServiceImp;
+
     // Get List Vehicle add to Cart
-    @GetMapping("/rental/")
+    @GetMapping("/rental")
     public ResponseEntity<?> getAllVehicleSelected() {
         return new ResponseEntity<>(cartServiceImp.getAllVehicleSelected(), HttpStatus.OK);
     }
 
+    @GetMapping("/rental/pay")
+    public ResponseEntity<?> getCartItemToPayment(@RequestParam int cartItemId) {
+        return new ResponseEntity<>(cartServiceImp.getVehicleSelectedToListCart(cartItemId), HttpStatus.OK);
+    }
+
     // Get Detail Vehicle and view rental date and return date
-    @GetMapping("/rental/add")
-    public ResponseEntity<CartItemDTO> addToCart(@RequestParam int id) {
-        return new ResponseEntity<>(cartServiceImp.getVehicleSelectedToListCart(id), HttpStatus.OK);
+    @PostMapping("/rental/add")
+    public ResponseEntity<?> addToCart(@RequestParam Integer idVehicle) {
+        boolean success = cartServiceImp.addToCart(idVehicle);
+        if (success) {
+            return ResponseEntity.ok(Result.builder().message("Vehicle added to cart successfully.").build());
+        } else {
+            return ResponseEntity.ok(Result.builder().message("Vehicle not found.").build());
+        }
     }
     // Change rental date
-    @GetMapping("/rental/detail/setDay")
-    public ResponseEntity<?> getDetailVehicleRental(@RequestParam int cartItemId, @RequestParam int dayRental) {
-        return new ResponseEntity<>(cartServiceImp.changeRentalDate(cartItemId, dayRental), HttpStatus.OK);
+    @GetMapping("/rental/setstate")
+    public ResponseEntity<?> getDetailVehicleRental(@RequestParam int cartItemId, @RequestParam int day, @RequestParam String email, @RequestParam String phone, @RequestParam String address) {
+        return new ResponseEntity<>(cartServiceImp.changeRentalDate(cartItemId, day, email, phone, address), HttpStatus.OK);
     }
     // Remove Selected
     @DeleteMapping("/rental/delete/{id}")

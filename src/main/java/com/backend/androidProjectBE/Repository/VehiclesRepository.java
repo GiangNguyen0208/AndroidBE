@@ -21,6 +21,7 @@ public interface VehiclesRepository extends JpaRepository<Vehicles, Integer> {
     List<Vehicles> findByPriceBetween(double minPrice, double maxPrice);
     List<Vehicles> findByType(String type);
     List<Vehicles> findByNameContainingIgnoreCase(String txtSearch);
+    List<Vehicles> findTop10ByOrderByIdAsc();
 
     @Query(value = "SELECT SUM(v.quantity) FROM vehicles v ", nativeQuery = true)
     Integer getQuantityInStock();

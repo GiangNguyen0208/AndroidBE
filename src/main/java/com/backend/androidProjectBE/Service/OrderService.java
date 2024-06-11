@@ -1,10 +1,10 @@
 package com.backend.androidProjectBE.Service;
 
-import com.backend.androidProjectBE.Entity.CartItems;
-import com.backend.androidProjectBE.Entity.OrderItems;
-import com.backend.androidProjectBE.Entity.Orders;
+import com.backend.androidProjectBE.Entity.*;
 import com.backend.androidProjectBE.Repository.CartRepository;
 import com.backend.androidProjectBE.Repository.OrderRepository;
+import com.backend.androidProjectBE.Repository.UserRepository;
+import com.backend.androidProjectBE.Repository.VehiclesRepository;
 import com.backend.androidProjectBE.Service.imp.OrderServiceImp;
 import com.backend.androidProjectBE.dto.CartItemDTO;
 import com.backend.androidProjectBE.dto.OrderDTO;
@@ -12,8 +12,7 @@ import com.backend.androidProjectBE.dto.OrderItemDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class OrderService implements OrderServiceImp {
@@ -23,10 +22,32 @@ public class OrderService implements OrderServiceImp {
     @Autowired
     CartRepository  cartRepository;
 
+    @Autowired
+    VehiclesRepository vehiclesRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     @Override
-    public OrderItems addOrderItem(OrderItems orderItem) {
-        return orderRepository.save(orderItem);
+    public boolean addOrderItem(CartItemDTO cartItemDTO) {
+        Vehicles vehicles = vehiclesRepository.findById(cartItemDTO.getVehicleid()).get();
+        Users users = userRepository.findById(cartItemDTO.getUserid());
+
+        if (vehicles != null && users != null) {
+            OrderItems orderItem = OrderItems.builder()
+                    .vehicles(vehicles)
+                    .users(users)
+                    .price(cartItemDTO.getPrice()) // Assuming you want to set the price correctly
+                    .address(cartItemDTO.getAddress())
+                    .email(cartItemDTO.getEmail())
+                    .phone(cartItemDTO.getPhone())
+                    .rentalDate(cartItemDTO.getRentalDate())
+                    .returnDate(cartItemDTO.getReturnDate())
+                    .build();
+            orderRepository.save(orderItem);
+            return true;
+        }
+        return false;
     }
 
     @Override

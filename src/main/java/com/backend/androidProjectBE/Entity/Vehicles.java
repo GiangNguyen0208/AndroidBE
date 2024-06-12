@@ -25,7 +25,7 @@ public class Vehicles {
 
     private Double price;
 
-    private String desc;
+    private String about;
 
     private int quantity;
 

@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
@@ -34,8 +33,8 @@ public class CartController {
 
     // Get Detail Vehicle and view rental date and return date
     @PostMapping("/rental/add")
-    public ResponseEntity<?> addToCart(@RequestParam Integer idVehicle) {
-        boolean success = cartServiceImp.addToCart(idVehicle);
+    public ResponseEntity<?> addToCart(@RequestParam Integer idVehicle, @RequestParam Integer userId) {
+        boolean success = cartServiceImp.addToCart(idVehicle, userId);
         if (success) {
             return ResponseEntity.ok(Result.builder().message("Vehicle added to cart successfully.").build());
         } else {
@@ -43,18 +42,14 @@ public class CartController {
         }
     }
     // Change rental date
-    @GetMapping("/rental/setstate")
-    public ResponseEntity<?> getDetailVehicleRental(@RequestParam int cartItemId, @RequestParam int day, @RequestParam String email, @RequestParam String phone, @RequestParam String address) {
-        return new ResponseEntity<>(cartServiceImp.changeRentalDate(cartItemId, day, email, phone, address), HttpStatus.OK);
+    @PostMapping("/rental/setstate")
+    public ResponseEntity<?> getDetailVehicleRental(@RequestBody CartItemDTO statusUpdateDTO) {
+        return new ResponseEntity<>(cartServiceImp.changeRentalDate(statusUpdateDTO), HttpStatus.OK);
     }
     // Remove Selected
     @DeleteMapping("/rental/delete/{id}")
-    public String deleteCartItem(@PathVariable int id) {
-        try {
-            cartServiceImp.removeSelectedVehicle(id);
-            return "CartItem with id " + id + " has been deleted.";
-        } catch (RuntimeException e) {
-            return e.getMessage();
-        }
+    public ResponseEntity<?> deleteCartItem(@PathVariable int id) {
+        cartServiceImp.removeSelectedVehicle(id);
+        return ResponseEntity.ok(Result.builder().message("Remove successfully.").build());
     }
 }

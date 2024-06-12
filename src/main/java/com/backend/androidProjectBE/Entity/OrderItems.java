@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -26,6 +28,11 @@ public class OrderItems {
 
     private String phone;
 
+    private Date rentalDate;
+
+    private Date returnDate;
+
+
     @ManyToOne
     @JoinColumn(name = "vehicle_id")
     private Vehicles vehicles;
@@ -33,4 +40,8 @@ public class OrderItems {
     @ManyToOne
     @JoinColumn(name = "order_id")
     private Orders orders;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private Users users;
 }

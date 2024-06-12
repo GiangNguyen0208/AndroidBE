@@ -55,6 +55,12 @@ public class Users {
     @OneToMany(mappedBy = "users")
     private Set<Carts> carts;
 
+    @OneToMany(mappedBy = "users")
+    private Set<CartItems> cartItems;
+
+    @OneToMany(mappedBy = "users")
+    private Set<OrderItems> orderItems;
+
     @Override
     public String toString() {
         return "Users{" +

@@ -43,4 +43,6 @@ public class CartItemDTO {
     private String email;
 
     private String phone;
+
+    private int userid;
 }

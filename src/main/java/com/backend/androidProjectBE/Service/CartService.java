@@ -2,20 +2,20 @@ package com.backend.androidProjectBE.Service;
 
 
 import com.backend.androidProjectBE.Entity.CartItems;
-import com.backend.androidProjectBE.Entity.Images;
-import com.backend.androidProjectBE.Entity.Rentals;
+import com.backend.androidProjectBE.Entity.Users;
 import com.backend.androidProjectBE.Entity.Vehicles;
 import com.backend.androidProjectBE.Repository.CartRepository;
-import com.backend.androidProjectBE.Repository.RentalsRepository;
+import com.backend.androidProjectBE.Repository.UserRepository;
 import com.backend.androidProjectBE.Repository.VehiclesRepository;
 import com.backend.androidProjectBE.Service.imp.CartServiceImp;
-import com.backend.androidProjectBE.dto.CartDTO;
 import com.backend.androidProjectBE.dto.CartItemDTO;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 @Service
 public class CartService implements CartServiceImp {

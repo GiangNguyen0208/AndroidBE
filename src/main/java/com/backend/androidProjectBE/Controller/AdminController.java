@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1")
 public class AdminController {
@@ -26,6 +28,11 @@ public class AdminController {
     public ResponseEntity<Users> updateUser(@PathVariable int id, @RequestBody Users users) {
         Users updatedUser = userServiceImp.updateUser(id, users);
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+    }
+
+    @GetMapping("/users")
+    public ResponseEntity<List<UserDTO>> getUserList() {
+        return new ResponseEntity<>(userServiceImp.getAllUsers(), HttpStatus.OK);
     }
 }
 

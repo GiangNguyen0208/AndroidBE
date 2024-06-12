@@ -19,10 +19,10 @@ import java.util.List;
 public class OrderController {
     @Autowired
     OrderServiceImp orderServiceImp;
-    @GetMapping("/order/add")
-    public ResponseEntity<?> getCartItemToPay(@RequestBody OrderItems orderItem) {
-        return new ResponseEntity<>(orderServiceImp.addOrderItem(orderItem), HttpStatus.OK);
-    }
+//    @GetMapping("/order/add")
+//    public ResponseEntity<?> getCartItemToPay(@RequestBody OrderItems orderItem) {
+//        return new ResponseEntity<>(orderServiceImp.addOrderItem(orderItem), HttpStatus.OK);
+//    }
     @GetMapping("/order")
     public ResponseEntity<?> findAllOrder() {
         return new ResponseEntity<>(orderServiceImp.findAll(), HttpStatus.OK);

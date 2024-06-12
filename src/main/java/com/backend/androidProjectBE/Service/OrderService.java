@@ -6,13 +6,10 @@ import com.backend.androidProjectBE.Entity.Orders;
 import com.backend.androidProjectBE.Repository.CartRepository;
 import com.backend.androidProjectBE.Repository.OrderRepository;
 import com.backend.androidProjectBE.Service.imp.OrderServiceImp;
-import com.backend.androidProjectBE.dto.CartItemDTO;
-import com.backend.androidProjectBE.dto.OrderDTO;
 import com.backend.androidProjectBE.dto.OrderItemDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -26,12 +23,13 @@ public class OrderService implements OrderServiceImp {
 
     @Override
     public OrderItems addOrderItem(OrderItems orderItem) {
-        return orderRepository.save(orderItem);
+//        return orderRepository.save(orderItem);
+        return null;
     }
 
     @Override
-    public List<OrderItems> findAll() {
-        List<OrderItems> orderItemsList = orderRepository.findAll();
+    public List<Orders> findAll() {
+        List<Orders> orderItemsList = orderRepository.findAll();
         return orderItemsList;
     }
 

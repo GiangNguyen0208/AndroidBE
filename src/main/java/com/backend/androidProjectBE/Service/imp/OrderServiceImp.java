@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface OrderServiceImp {
     OrderItems addOrderItem(OrderItems orderItem);
-    List<OrderItems> findAll();
+    List<Orders> findAll();
     void removeOrderItem(int id);
     OrderItemDTO getCartItemToPay(int cartItemId);
 }

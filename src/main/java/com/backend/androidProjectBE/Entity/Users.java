@@ -11,7 +11,7 @@ import java.util.Set;
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
 
     private String username;
 
@@ -54,6 +54,12 @@ public class Users {
 
     @OneToMany(mappedBy = "users")
     private Set<Carts> carts;
+
+    @OneToMany(mappedBy = "users")
+    private Set<CartItems> cartItems;
+
+    @OneToMany(mappedBy = "users")
+    private Set<OrderItems> orderItems;
 
     @Override
     public String toString() {

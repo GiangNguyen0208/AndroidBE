@@ -2,11 +2,14 @@ package com.backend.androidProjectBE.dto;
 
 import lombok.*;
 
+import java.util.Date;
 import java.util.List;
 
 @Data
-//@Builder
+@Builder
 @ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class VehiclesDTO {
     private int id;
 
@@ -18,20 +21,21 @@ public class VehiclesDTO {
 
     private double price;
 
-    private DiscountDTO discountDTO;
+    private double discount;
 
-    private ColorDTO colorDTO;
+    private String color;
 
-    private BrandDTO brandDTO;
+    private String brand;
 
-    private ModelDTO modelDTO;
+    private String model;
 
-    private ImageDTO imageDTO;
-    public VehiclesDTO() {
-        this.discountDTO = new DiscountDTO();
-        this.modelDTO = new ModelDTO();
-        this.imageDTO = new ImageDTO();
-        this.brandDTO = new BrandDTO();
-        this.colorDTO = new ColorDTO();
-    }
+    private String image;
+
+    private Date rentalDate;
+
+    private Date returnDate;
+
+    private String desc;
+
+    private Integer day;
 }

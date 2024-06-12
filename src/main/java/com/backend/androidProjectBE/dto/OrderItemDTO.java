@@ -1,20 +1,39 @@
 package com.backend.androidProjectBE.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 
 @Data
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class OrderItemDTO {
-    private int vehicleId;
+    private Integer id;
 
-    private String name;
+    private Integer vehicleid;
+
+    private String nameVehicle;
+
+    private String brandVehicle;
+
+    private String imageLink;
 
     private double price;
 
-    private String brand;
+    private Date rentalDate;
 
-    private int quantity = 1;
+    private Date returnDate;
+
+    private int rental_day;
+
+    private String address;
+
+    private String email;
+
+    private String phone;
 }

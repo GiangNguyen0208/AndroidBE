@@ -1,51 +1,84 @@
 package com.backend.androidProjectBE.Service;
 
-import com.backend.androidProjectBE.Entity.OrderItems;
-import com.backend.androidProjectBE.Entity.Orders;
+import com.backend.androidProjectBE.Entity.*;
+import com.backend.androidProjectBE.Repository.CartRepository;
 import com.backend.androidProjectBE.Repository.OrderRepository;
+import com.backend.androidProjectBE.Repository.UserRepository;
+import com.backend.androidProjectBE.Repository.VehiclesRepository;
 import com.backend.androidProjectBE.Service.imp.OrderServiceImp;
+import com.backend.androidProjectBE.dto.CartItemDTO;
 import com.backend.androidProjectBE.dto.OrderDTO;
 import com.backend.androidProjectBE.dto.OrderItemDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class OrderService implements OrderServiceImp {
     @Autowired
     OrderRepository orderRepository;
 
-    @Override
-    public List<OrderItemDTO> getAllOrderItem() {
-        List<OrderItems> orderItemsList = orderRepository.findAll();
-        List<OrderItemDTO> orderItemDTOS = new ArrayList<>();
+    @Autowired
+    CartRepository  cartRepository;
 
-        for (OrderItems o : orderItemsList) {
-            OrderItemDTO orderItemDTO = new OrderItemDTO();
-            orderItemDTO.setVehicleId(o.getVehicles().getId());
-            orderItemDTO.setName(o.getVehicles().getName());
-            orderItemDTO.setPrice(o.getVehicles().getPrice());
-            orderItemDTO.setBrand(o.getVehicles().getBrands().getName());
-            orderItemDTOS.add(orderItemDTO);
+    @Autowired
+    VehiclesRepository vehiclesRepository;
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Override
+    public boolean addOrderItem(CartItemDTO cartItemDTO) {
+        Vehicles vehicles = vehiclesRepository.findById(cartItemDTO.getVehicleid()).get();
+        Users users = userRepository.findById(cartItemDTO.getUserid());
+
+        if (vehicles != null && users != null) {
+            OrderItems orderItem = OrderItems.builder()
+                    .vehicles(vehicles)
+                    .users(users)
+                    .price(cartItemDTO.getPrice()) // Assuming you want to set the price correctly
+                    .address(cartItemDTO.getAddress())
+                    .email(cartItemDTO.getEmail())
+                    .phone(cartItemDTO.getPhone())
+                    .rentalDate(cartItemDTO.getRentalDate())
+                    .returnDate(cartItemDTO.getReturnDate())
+                    .build();
+            orderRepository.save(orderItem);
+            return true;
         }
-        return orderItemDTOS;
+        return false;
     }
-    @Override
-    public OrderItemDTO addOrderItem(OrderItems orderItems) {
-        OrderItems items = orderRepository.save(orderItems);
-        OrderItemDTO orderItemDTO = new OrderItemDTO();
-        orderItemDTO.setVehicleId(items.getVehicles().getId());
-        orderItemDTO.setName(items.getVehicles().getName());
-        orderItemDTO.setPrice(items.getVehicles().getPrice());
-        orderItemDTO.setBrand(items.getVehicles().getBrands().getName());
 
-        return orderItemDTO;
+    @Override
+    public List<OrderItems> findAll() {
+        List<OrderItems> orderItemsList = orderRepository.findAll();
+        return orderItemsList;
     }
 
     @Override
     public void removeOrderItem(int id) {
         orderRepository.deleteById(id);
+    }
+
+
+    // Thanh toan
+    @Override
+    public OrderItemDTO getCartItemToPay(int cartItemId) {
+        CartItems cartItems = cartRepository.findById(cartItemId);
+
+        OrderItemDTO orderItemDTO = OrderItemDTO.builder()
+                .vehicleid(cartItems.getVehicles().getId())
+                .nameVehicle(cartItems.getVehicles().getName())
+                .brandVehicle(cartItems.getVehicles().getBrands().getName())
+                .imageLink(cartItems.getVehicles().getImages().getImgLink())
+                .rentalDate(cartItems.getRentals().getRentalDate())
+                .returnDate(cartItems.getRentals().getReturnDate())
+                .rental_day(cartItems.getRental_day())
+                .address(cartItems.getAddress())
+                .phone(cartItems.getPhone())
+                .email(cartItems.getEmail())
+                .build();
+        return orderItemDTO;
     }
 }

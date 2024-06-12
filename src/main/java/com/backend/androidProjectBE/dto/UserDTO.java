@@ -1,11 +1,6 @@
 package com.backend.androidProjectBE.dto;
 
-import com.backend.androidProjectBE.Entity.Roles;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.util.Date;
 
 
@@ -21,6 +16,8 @@ public class UserDTO {
 
     private String password;
 
+    private String newPassword;
+
     private Boolean gender;
 
     private String phone;
@@ -34,6 +31,7 @@ public class UserDTO {
     private Boolean status;
 
     private String address;
+
     public UserDTO() {
         this.roleDTO = new RoleDTO();  // Khởi tạo RoleDTO
     }

@@ -2,6 +2,7 @@ package com.backend.androidProjectBE.Service;
 
 import com.backend.androidProjectBE.Entity.Users;
 import com.backend.androidProjectBE.Repository.UserRepository;
+import com.backend.androidProjectBE.Service.imp.AdminServiceImp;
 import com.backend.androidProjectBE.Service.imp.UserServiceImp;
 import com.backend.androidProjectBE.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class AdminService implements UserServiceImp {
+public class AdminService implements AdminServiceImp {
 
     @Autowired
     UserRepository userRepository;

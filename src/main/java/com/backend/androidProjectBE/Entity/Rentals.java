@@ -19,6 +19,8 @@ public class Rentals {
 
     private Date returnDate;
 
+    // location
+
     @ManyToOne
     @JoinColumn(name = "vehicle_id")
     private Vehicles vehicles;

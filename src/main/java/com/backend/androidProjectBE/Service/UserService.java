@@ -47,7 +47,7 @@ public class UserService implements UserServiceImp {
     @Override
     public Users updateUser(int id, UserDTO userDTO) {
         Optional<Users> userOptional = Optional.ofNullable(userRepository.findById(id));
-        if (!userOptional.isPresent()) {
+        if (userOptional.isEmpty()) {
             throw new RuntimeException("User not found");
         }
 
@@ -55,7 +55,6 @@ public class UserService implements UserServiceImp {
         user.setFirstname(userDTO.getFirstname());
         user.setLastname(userDTO.getLastname());
         user.setEmail(userDTO.getEmail());
-        user.setPassword(user.getPassword());
         user.setGender(userDTO.getGender());
         user.setPhone(userDTO.getPhone());
         user.setBirthDay(userDTO.getBirthDay());
@@ -97,25 +96,20 @@ public class UserService implements UserServiceImp {
     }
     }
 
-    // @Override
-    // public LicenseVehicles upImgLicense(int userId, ImgLicense imgLicense) {
-    //     Optional<Users> userOptional = Optional.ofNullable(userRepository.findById(userId));
-    //     if (userOptional.isPresent()) {
-    //         Users user = userOptional.get();
-    //         user.setStatus(true);
-    
-    //         LicenseVehicles license = new LicenseVehicles();
-    //         license.setImgLicense(imgLicense.getImg());
-    //         license.setUsers(user);
+    @Override
+    public Users changePassword(int id, UserDTO userDTO) {
+        Optional<Users> userOptional = Optional.ofNullable(userRepository.findById(id));
+        if (userOptional.isEmpty()) {
+            throw new RuntimeException("User not found");
+        }
+        if(!userDTO.getPassword().equals(userOptional.get().getPassword())) {
+            throw new RuntimeException("Passwords do not match");
+        }
+            Users user = userOptional.get();
+            user.setPassword(userDTO.getNewPassword());
 
-    //         licenseVehiclesRepository.save(license);
-    //         userRepository.save(user);
-    
-    //         return license;
-    //     } else {
-    //         throw new RuntimeException("User not found");
-    //     }
-    // }
+        return userRepository.save(user);
+    }
 
     @Override
     public void save(int userId, MultipartFile file) {

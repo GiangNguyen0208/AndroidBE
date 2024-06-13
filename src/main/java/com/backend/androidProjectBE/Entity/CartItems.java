@@ -41,6 +41,7 @@ public class CartItems {
     private Rentals rentals;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @EqualsAndHashCode.Exclude @ToString.Exclude
+    @JoinColumn(name="user_id", nullable = false)
     private Users users;
 }

@@ -15,9 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.function.Function;
 
 @Service
@@ -36,6 +34,8 @@ public class MessageService implements MessageServiceImp {
             i.setTo(m.getToUser().getId());;
             i.setContent(m.getContent());
             i.setCreateAt(m.getDateCreate());
+            i.setFromFirstName(userRepository.findById(m.getFromUser().getId()).getFirstname());
+            i.setToFirstName(userRepository.findById(m.getToUser().getId()).getFirstname());
             res.add(i);
         }
         return res;
@@ -54,16 +54,14 @@ public class MessageService implements MessageServiceImp {
 
     @Override
     public List<MessageDTO> getMessagesFor(UserDTO user) {
-        List<Messages> messages = new ArrayList<>();
         Users u = userRepository.findById(user.getId().intValue());
-        int role = u.getId();
-        if (role == Constraints.ADMIN_ROLE){
-            messages = messageRepository.findByToUser(u);
-        }else{
-            messages = messageRepository.findByToUser(u);
-        }
+
+        List<Messages> messages = messageRepository.findByToUser(u);
+        messages.addAll(messageRepository.findByFromUser(u));
+
         return convertFrom(messages);
     }
+
 
     //Check if customer send message to other customer
     private boolean isCustomerToCustomer(Users from, Users to){
@@ -85,6 +83,15 @@ public class MessageService implements MessageServiceImp {
         newMessage.setDateCreate(Date.from(Instant.now()));
         messageRepository.save(newMessage);
         return true;
+    }
+
+    @Override
+    public Set<Integer> getAdminMessage() {
+        Set<Integer> admins = new HashSet<>();
+        for (Users u: userRepository.findByIsAdminMessageTrue()){
+            admins.add(u.getId());
+        }
+        return admins;
     }
 
 }

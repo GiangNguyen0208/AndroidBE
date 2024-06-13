@@ -37,7 +37,6 @@ public class MessageController {
                 response = ResponseEntity.status(HttpStatus.BAD_REQUEST).body("something went wrong, may be id not exist");
             }
         }
-
         return response;
     }
 

@@ -29,6 +29,8 @@ public class OrderItemDTO {
 
     private Date returnDate;
 
+    private String status;
+
     private int rental_day;
 
     private String address;

@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
 
@@ -39,10 +38,6 @@ public class UserDTO {
     private Boolean status;
 
     private String address;
-
-    public UserDTO() {
-        this.roleDTO = new RoleDTO();  // Khởi tạo RoleDTO
-    }
 
     private String roleName;
 

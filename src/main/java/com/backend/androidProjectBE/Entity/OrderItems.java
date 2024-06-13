@@ -32,6 +32,7 @@ public class OrderItems {
 
     private Date returnDate;
 
+    private String status;
 
     @ManyToOne
     @JoinColumn(name = "vehicle_id")

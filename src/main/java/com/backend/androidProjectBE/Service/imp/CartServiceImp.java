@@ -6,7 +6,7 @@ import com.backend.androidProjectBE.dto.CartItemDTO;
 import java.util.List;
 
 public interface CartServiceImp {
-    List<CartItemDTO> getAllVehicleSelected();
+    List<CartItemDTO> getAllVehicleSelected(int idUser);
     CartItemDTO getVehicleSelectedToListCart(int id);
     CartItemDTO changeRentalDate(CartItemDTO statusUpdateDTO);
     void removeSelectedVehicle(int id);

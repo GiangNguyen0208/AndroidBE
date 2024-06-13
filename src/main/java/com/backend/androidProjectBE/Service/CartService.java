@@ -12,10 +12,7 @@ import com.backend.androidProjectBE.dto.CartItemDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class CartService implements CartServiceImp {
@@ -29,14 +26,16 @@ public class CartService implements CartServiceImp {
     UserRepository userRepository;
 
     @Override
-    public List<CartItemDTO> getAllVehicleSelected() {
-        List<CartItems> cartItemsList = cartRepository.findAll();
+    public List<CartItemDTO> getAllVehicleSelected(int idUser) {
+        List<CartItems> cartItemsList = cartRepository.findAllByUsers_Id(idUser);
         List<CartItemDTO> cartItemDTOList = new ArrayList<>();
         for (CartItems items : cartItemsList) {
             Date rentalDate = new Date();
             Calendar calendar = Calendar.getInstance();
+            calendar.setTime(rentalDate);
             calendar.add(Calendar.DAY_OF_YEAR, items.getRental_day()); // Set return date based on quantity (days)
             Date returnDate = calendar.getTime();
+
             CartItemDTO cartItemDTO = CartItemDTO.builder()
                     .id(items.getId())
                     .vehicleid(items.getVehicles().getId())
@@ -53,8 +52,8 @@ public class CartService implements CartServiceImp {
         return cartItemDTOList;
     }
 
-@Override
-public CartItemDTO  getVehicleSelectedToListCart(int id) {
+    @Override
+    public CartItemDTO getVehicleSelectedToListCart(int id) {
         CartItems cartItems = cartRepository.findById(id);
         Date rentalDate = new Date();
         Calendar calendar = Calendar.getInstance();
@@ -70,34 +69,7 @@ public CartItemDTO  getVehicleSelectedToListCart(int id) {
                 .rental_day(1)
                 .build();
         return cartItemDTO;
-}
-
-
-//    @Override
-//    public CartItemDTO changeRentalDate(int id, int day, String email, String phone, String address) {
-//        CartItems cartItems = cartRepository.findById(id);
-//        Date rentalDate = new Date();
-//        rentalDate =  new Date();
-//        Calendar calendar = Calendar.getInstance();
-//        calendar.add(Calendar.DAY_OF_YEAR, day);
-//        Date returnDate = calendar.getTime();
-//        CartItemDTO cartItemDTO = CartItemDTO.builder()
-//                .id(cartItems.getId())
-//                .vehicleid(cartItems.getVehicles().getId())
-//                .nameVehicle(cartItems.getVehicles().getName())
-//                .price(cartItems.getVehicles().getPrice()*day)
-//                .brandVehicle(cartItems.getVehicles().getBrands().getName())
-//                .rental_day(day)
-//                .rentalDate(rentalDate)
-//                .returnDate(returnDate)
-//                .email(email)
-//                .phone(phone)
-//                .address(address)
-//                .build();
-//        cartRepository.deleteById(id);
-//        return cartItemDTO;
-//    }
-
+    }
     @Override
     public CartItemDTO changeRentalDate(CartItemDTO statusUpdateDTO) {
         CartItems cartItems = cartRepository.findById(statusUpdateDTO.getId()).get();
@@ -109,7 +81,7 @@ public CartItemDTO  getVehicleSelectedToListCart(int id) {
                 .id(cartItems.getId())
                 .vehicleid(cartItems.getVehicles().getId())
                 .nameVehicle(cartItems.getVehicles().getName())
-                .price(cartItems.getVehicles().getPrice()*statusUpdateDTO.getDay())
+                .price(cartItems.getVehicles().getPrice() * statusUpdateDTO.getDay())
                 .brandVehicle(cartItems.getVehicles().getBrands().getName())
                 .rental_day(statusUpdateDTO.getDay())
                 .rentalDate(rentalDate)
@@ -125,12 +97,12 @@ public CartItemDTO  getVehicleSelectedToListCart(int id) {
     public void removeSelectedVehicle(int cartItemId) {
         cartRepository.deleteById(cartItemId);
     }
+
     @Override
     public boolean addToCart(Integer idVehicle, Integer userId) {
         Vehicles vehicles = vehiclesRepository.findById(idVehicle).get();
         Users users = userRepository.findById(userId).get();
-
-        if (vehicles !=  null && users != null) {
+        if (vehicles != null && users != null) {
             CartItems cartItems = CartItems.builder()
                     .vehicles(vehicles)
                     .users(users)
@@ -141,6 +113,7 @@ public CartItemDTO  getVehicleSelectedToListCart(int id) {
         }
         return false;
     }
+
     @Override
     public CartItemDTO findById(int id) {
         Vehicles vehicles = vehiclesRepository.findById(id);
@@ -151,7 +124,7 @@ public CartItemDTO  getVehicleSelectedToListCart(int id) {
         CartItemDTO cartItemDTO = CartItemDTO.builder()
                 .vehicleid(vehicles.getId())
                 .nameVehicle(vehicles.getName())
-                .price(vehicles.getPrice()*(1-vehicles.getDiscounts().getValue()))
+                .price(vehicles.getPrice() * (1 - vehicles.getDiscounts().getValue()))
                 .rentalDate(rentalDate)
                 .returnDate(returnDate)
                 .build();

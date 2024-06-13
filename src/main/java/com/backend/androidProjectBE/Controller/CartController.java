@@ -21,9 +21,9 @@ public class CartController {
     VehiclesServiceImp vehiclesServiceImp;
 
     // Get List Vehicle add to Cart
-    @GetMapping("/rental")
-    public ResponseEntity<?> getAllVehicleSelected() {
-        return new ResponseEntity<>(cartServiceImp.getAllVehicleSelected(), HttpStatus.OK);
+    @GetMapping("/rental/getAllCartItem")
+    public ResponseEntity<?> getAllVehicleSelected(@RequestParam int idUser) {
+        return new ResponseEntity<>(cartServiceImp.getAllVehicleSelected(idUser), HttpStatus.OK);
     }
 
     @GetMapping("/rental/pay")

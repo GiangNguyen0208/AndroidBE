@@ -61,7 +61,4 @@ public class Vehicles {
     @OneToMany(mappedBy = "vehicles")
     private Set<CartItems> cartItems;
 
-    public Vehicles(int id) {
-        this.images = new Images();
-    }
 }

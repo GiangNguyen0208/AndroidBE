@@ -6,6 +6,7 @@ import com.backend.androidProjectBE.Repository.OrderRepository;
 import com.backend.androidProjectBE.Repository.UserRepository;
 import com.backend.androidProjectBE.Repository.VehiclesRepository;
 import com.backend.androidProjectBE.Service.imp.OrderServiceImp;
+import com.backend.androidProjectBE.Utils.Constraints;
 import com.backend.androidProjectBE.dto.CartItemDTO;
 import com.backend.androidProjectBE.dto.OrderDTO;
 import com.backend.androidProjectBE.dto.OrderItemDTO;
@@ -30,14 +31,23 @@ public class OrderService implements OrderServiceImp {
 
     @Override
     public boolean addOrderItem(CartItemDTO cartItemDTO) {
-        Vehicles vehicles = vehiclesRepository.findById(cartItemDTO.getVehicleid()).get();
-        Users users = userRepository.findById(cartItemDTO.getUserid());
-
-        if (vehicles != null && users != null) {
+        Integer vehicleId = cartItemDTO.getVehicleid();
+        System.out.println(vehicleId);
+        Optional<Vehicles> vehiclesOptional = vehiclesRepository.findById(vehicleId);
+        Optional<Users> usersOptional = Optional.ofNullable(userRepository.findById(cartItemDTO.getUserid()));
+        // Kiểm tra xem vehiclesOptional có giá trị và usersOptional không rỗng
+        if (vehiclesOptional.isPresent() && usersOptional.isPresent()) {
+            Vehicles vehicles = vehiclesOptional.get();
+            Users users = usersOptional.get();
+            // Kiểm tra xem vehicles và users có khớp với cartItemDTO hay không
+            if (vehicles.getId() != cartItemDTO.getVehicleid() || users.getId() != cartItemDTO.getUserid()) {
+                return false; // Nếu không khớp thì không thêm được vào đơn hàng
+            }
             OrderItems orderItem = OrderItems.builder()
                     .vehicles(vehicles)
                     .users(users)
-                    .price(cartItemDTO.getPrice()) // Assuming you want to set the price correctly
+                    .status(Constraints.CONFIRM)
+                    .price(cartItemDTO.getPrice())
                     .address(cartItemDTO.getAddress())
                     .email(cartItemDTO.getEmail())
                     .phone(cartItemDTO.getPhone())
@@ -47,12 +57,13 @@ public class OrderService implements OrderServiceImp {
             orderRepository.save(orderItem);
             return true;
         }
+
         return false;
     }
 
     @Override
-    public List<OrderItems> findAll() {
-        List<OrderItems> orderItemsList = orderRepository.findAll();
+    public List<OrderItems> findAll(int iduser) {
+        List<OrderItems> orderItemsList = orderRepository.findAllByUsers_Id(iduser);
         return orderItemsList;
     }
 

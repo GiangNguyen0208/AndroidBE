@@ -1,10 +1,7 @@
 package com.backend.androidProjectBE.Entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Date;
 
@@ -43,6 +40,7 @@ public class OrderItems {
     private Orders orders;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @EqualsAndHashCode.Exclude @ToString.Exclude
+    @JoinColumn(name="user_id", nullable = false)
     private Users users;
 }

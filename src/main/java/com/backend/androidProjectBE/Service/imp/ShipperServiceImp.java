@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface ShipperServiceImp {
     List<OrderItemDTO> listAllOrderItems();
-    OrderItems setStatusOrderItem(OrderItemDTO orderItemDTO, int idOrder);
+    OrderItemDTO findOrderItemById(int id);
+    OrderItemDTO setStatusOrderItem(OrderItemDTO orderItemDTO, int idOrder);
 }

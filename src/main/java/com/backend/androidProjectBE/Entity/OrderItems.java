@@ -29,6 +29,8 @@ public class OrderItems {
 
     private Date returnDate;
 
+    private int rentalDay;
+
     private String status;
 
     @ManyToOne

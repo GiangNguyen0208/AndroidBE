@@ -50,7 +50,7 @@ public class VehicleService implements VehiclesServiceImp {
                 .status(vehicles.getStatus())
                 .rentalDate(rentalDate)
                 .returnDate(returnDate)
-                .desc(vehicles.getDesc())
+                .desc(vehicles.getAbout())
                 .day(day)
                 .build();
         if (vehiclesDTO == null) {return null;} else {return vehiclesDTO;}

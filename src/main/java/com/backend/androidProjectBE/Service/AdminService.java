@@ -41,6 +41,7 @@ public class AdminService implements UserServiceImp, RolesServiceImp {
         userDTO.setEmail(user.getEmail());
         userDTO.setBirthDay(user.getBirthDay());
         userDTO.setRoleName(user.getRoles().getName());
+        userDTO.setIsAdminMessage(user.getIsAdminMessage());
         return userDTO;
     }
 
@@ -58,6 +59,7 @@ public class AdminService implements UserServiceImp, RolesServiceImp {
         user.setGender(usersChange.getGender());
         user.setPhone(usersChange.getPhone());
         user.setBirthDay(usersChange.getBirthDay());
+        user.setIsAdminMessage(usersChange.getIsAdminMessage());
         Optional<Roles> r = roleRepository.findByName(usersChange.getRoleName());
         if (r.isPresent())
             user.setRoles(r.get());
@@ -81,6 +83,7 @@ public class AdminService implements UserServiceImp, RolesServiceImp {
             userResponseDTO.setGender(user.getGender());
             userResponseDTO.setBirthDay(user.getBirthDay());
             userResponseDTO.setRoleName(user.getRoles().getName());
+            userResponseDTO.setIsAdminMessage(user.getIsAdminMessage());
             return userResponseDTO;
         } else {
             throw new RuntimeException("User not found");

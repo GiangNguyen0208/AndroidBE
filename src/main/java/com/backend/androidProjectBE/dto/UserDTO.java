@@ -33,5 +33,6 @@ public class UserDTO {
     private Date birthDay;
 
     private String roleName;
+    private Boolean isAdminMessage;
 
 }

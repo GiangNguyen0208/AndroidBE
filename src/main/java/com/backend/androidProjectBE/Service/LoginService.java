@@ -36,6 +36,7 @@ public class LoginService implements LoginServiceImp {
                     .email(u.getEmail())
                     .birthDay(u.getBirthDay())
                     .password(u.getPassword())
+                    .isAdminMessage(u.getIsAdminMessage())
                     .build();
             userDTOList.add(userDTO);
         }

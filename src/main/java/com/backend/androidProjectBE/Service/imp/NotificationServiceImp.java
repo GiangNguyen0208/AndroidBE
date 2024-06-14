@@ -1,10 +1,9 @@
 package com.backend.androidProjectBE.Service.imp;
 
-import com.backend.androidProjectBE.Entity.Notification;
-import com.backend.androidProjectBE.Service.NotificationService;
+import com.backend.androidProjectBE.Entity.Anounces;
 
 import java.util.List;
 
 public interface NotificationServiceImp {
-    List<Notification> getAllNotifications();
+    List<Anounces> getAllNotifications();
 }

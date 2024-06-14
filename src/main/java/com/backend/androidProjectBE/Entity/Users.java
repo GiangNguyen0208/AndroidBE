@@ -33,6 +33,8 @@ public class Users {
 
     private String address;
 
+    private Boolean isAdminMessage;
+
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Roles roles;

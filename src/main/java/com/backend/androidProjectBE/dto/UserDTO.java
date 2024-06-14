@@ -14,7 +14,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Builder
 public class UserDTO {
-    private Integer  id;
+    private Integer id;
 
     private String username;
 

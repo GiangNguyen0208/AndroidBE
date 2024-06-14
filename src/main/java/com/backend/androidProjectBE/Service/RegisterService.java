@@ -2,7 +2,7 @@ package com.backend.androidProjectBE.Service;
 
 import com.backend.androidProjectBE.Entity.Roles;
 import com.backend.androidProjectBE.Entity.Users;
-import com.backend.androidProjectBE.Repository.RolesRepository;
+import com.backend.androidProjectBE.Repository.RoleRepository;
 import com.backend.androidProjectBE.Repository.UserRepository;
 import com.backend.androidProjectBE.Service.imp.RegisterServiceImp;
 import com.backend.androidProjectBE.Utils.Constraints;
@@ -16,7 +16,7 @@ public class RegisterService implements RegisterServiceImp {
     UserRepository userRepository;
 
     @Autowired
-    RolesRepository rolesRepository;
+    RoleRepository rolesRepository;
 
     @Override
     public boolean registerNewUserServiceMethod(Users users) {

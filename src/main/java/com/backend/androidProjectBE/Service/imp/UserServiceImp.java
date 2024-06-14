@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface UserServiceImp {
     List<UserDTO> getAllUsers();
-    Users updateUser(int id, Users users);
+    UserDTO updateUser(int id, UserDTO users);
     UserDTO loadUsers(int id);
 }

@@ -7,8 +7,7 @@ import java.util.Date;
 @Data
 public class MessageDTO {
     private int id;
-    private String content;
-    private Integer from;
-    private Integer to;
+    private String content, fromFirstName, toFirstName;
+    private Integer from, to;
     private Date createAt;
 }

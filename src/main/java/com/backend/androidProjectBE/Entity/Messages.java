@@ -14,10 +14,10 @@ public class Messages {
     private String content;
     private Date dateCreate;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "from_user_id")
     private Users fromUser;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "to_user_id")
     private Users toUser;
 }

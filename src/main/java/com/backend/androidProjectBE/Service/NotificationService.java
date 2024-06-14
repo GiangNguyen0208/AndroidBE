@@ -4,8 +4,7 @@ import com.backend.androidProjectBE.Entity.Anounces;
 import com.backend.androidProjectBE.Repository.NotificationRepository;
 import com.backend.androidProjectBE.Service.imp.NotificationServiceImp;
 import com.backend.androidProjectBE.Service.imp.UserServiceImp;
-import com.backend.androidProjectBE.dto.NotificationDTO;
-import com.backend.androidProjectBE.dto.UserDTO;
+import com.backend.androidProjectBE.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,40 +13,37 @@ import java.util.List;
 
 @Service
 public class NotificationService implements NotificationServiceImp {
-    @Autowired
-    private UserServiceImp userServiceImp;
+
     @Autowired
     private NotificationRepository notificationRepository;
 
-    public List<NotificationDTO> readNotifications() {
-        List<Anounces> anouncesList = new ArrayList<>();
-        System.out.print("1"+notificationRepository.findAll());
-        anouncesList.addAll(notificationRepository.findAll());
-        return convertFrom(anouncesList);
-    }
+    @Autowired
+    private UserServiceImp userService;
 
-    private List<NotificationDTO> convertFrom(List<Anounces> list){
-        List<NotificationDTO> res = new ArrayList<>(list.size());
-
-        for (Anounces m: list){
-            NotificationDTO i = new NotificationDTO();
-            i.setTitle(m.getTitle());
-            i.setBody(m.getContent());
-            res.add(i);
+    @Override
+    public List<AnouncesDTO> getAllNotifications() {
+        List<Anounces> noctifyList = notificationRepository.findAll();
+        List<AnouncesDTO> messageDTOS = new ArrayList<>();
+        for (Anounces anounces : noctifyList) {
+            AnouncesDTO messageDTO = new AnouncesDTO();
+            messageDTO.setId(anounces.getId());
+            messageDTO.setTitle(anounces.getTitle());
+            messageDTO.setContent(anounces.getContent());
+            messageDTOS.add(messageDTO);
         }
-        return res;
-    }
-
-
-    public void sendNotification(Anounces notification) {
-        Anounces newanounces = new Anounces();
-        newanounces.setTitle(notification.getTitle());
-        newanounces.setContent(notification.getContent());
-        notificationRepository.save(newanounces);
+        return messageDTOS;
     }
 
     @Override
-    public List<Anounces> getAllNotifications() {
-        return List.of();
+    public AnouncesDTO sendNoctify(AnouncesDTO anouncesDTO) {
+        AnouncesDTO aDTO = new AnouncesDTO();
+        Anounces anounces = new Anounces();
+        anounces.setTitle(anouncesDTO.getTitle());
+        anounces.setContent(anouncesDTO.getContent());
+        notificationRepository.save(anounces);
+        aDTO.setTitle(anouncesDTO.getTitle());
+        aDTO.setContent(anouncesDTO.getContent());
+        return aDTO;
     }
+
 }

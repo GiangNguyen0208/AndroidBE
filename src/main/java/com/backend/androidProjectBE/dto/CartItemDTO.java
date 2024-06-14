@@ -20,7 +20,7 @@ import java.util.Date;
 public class CartItemDTO {
     private Integer id;
 
-    private Integer vehicleid;
+    private int vehicleid;
 
     private String nameVehicle;
 
@@ -43,4 +43,6 @@ public class CartItemDTO {
     private String email;
 
     private String phone;
+
+    private int userid;
 }

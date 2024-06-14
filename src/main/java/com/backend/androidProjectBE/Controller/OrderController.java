@@ -19,12 +19,18 @@ import java.util.List;
 public class OrderController {
     @Autowired
     OrderServiceImp orderServiceImp;
-//    @GetMapping("/order/add")
-//    public ResponseEntity<?> getCartItemToPay(@RequestBody OrderItems orderItem) {
-//        return new ResponseEntity<>(orderServiceImp.addOrderItem(orderItem), HttpStatus.OK);
-//    }
-    @GetMapping("/order")
-    public ResponseEntity<?> findAllOrder() {
-        return new ResponseEntity<>(orderServiceImp.findAll(), HttpStatus.OK);
+
+    @PostMapping("/order/add")
+    public ResponseEntity<?> getCartItemToPay(@RequestBody CartItemDTO cartItems) {
+        boolean addSuccess = orderServiceImp.addOrderItem(cartItems);
+        if (addSuccess) {
+            return ResponseEntity.ok(Result.builder().message("Payment successfully. Go to Sleep !!!").build());
+        } else {
+            return ResponseEntity.ok(Result.builder().message("Payment Fail.").build());
+        }
+    }
+    @GetMapping("/order/getAllOrder")
+    public ResponseEntity<?> findAllOrder(@RequestParam int idUser) {
+        return new ResponseEntity<>(orderServiceImp.findAll(idUser), HttpStatus.OK);
     }
 }

@@ -3,6 +3,8 @@ package com.backend.androidProjectBE.Entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Date;
+
 @Entity(name = "cart_items")
 @Data
 @Builder
@@ -22,6 +24,10 @@ public class CartItems {
 
     private String phone;
 
+    private Date rentalDate;
+
+    private Date returnDate;
+
     @ManyToOne
     @JoinColumn(name = "vehicle_id")
     private Vehicles vehicles;
@@ -33,4 +39,9 @@ public class CartItems {
     @ManyToOne
     @JoinColumn(name = "rental_id")
     private Rentals rentals;
+
+    @ManyToOne
+    @EqualsAndHashCode.Exclude @ToString.Exclude
+    @JoinColumn(name="user_id", nullable = false)
+    private Users users;
 }

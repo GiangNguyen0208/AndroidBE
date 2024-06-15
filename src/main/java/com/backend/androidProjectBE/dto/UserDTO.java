@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
 
@@ -14,7 +13,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Builder
 public class UserDTO {
-    private Integer id;
+    private int id;
 
     private String username;
 
@@ -26,13 +25,20 @@ public class UserDTO {
 
     private String password;
 
+    private String newPassword;
+
     private Boolean gender;
 
-    private String  phone;
+    private String phone;
 
     private Date birthDay;
 
+    private Boolean status;
+
+    private String address;
+
     private String roleName;
+
     private Boolean isAdminMessage;
 
 }

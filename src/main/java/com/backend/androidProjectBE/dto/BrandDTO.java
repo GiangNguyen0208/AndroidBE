@@ -15,11 +15,4 @@ public class BrandDTO {
 
     private String name;
 
-    @Override
-    public String toString() {
-        return "BrandDTO{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
-    }
 }

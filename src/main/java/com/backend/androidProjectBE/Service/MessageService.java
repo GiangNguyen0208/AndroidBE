@@ -45,20 +45,23 @@ public class MessageService implements MessageServiceImp {
     public List<MessageDTO> getAllMessages(UserDTO user, boolean isToUser) {
         List<Messages> messages = new ArrayList<>();
         if (isToUser){
-            messages.addAll(messageRepository.findByToUser(userRepository.findById(user.getId().intValue())));
+            messages.addAll(messageRepository.findByToUser(userRepository.findById(user.getId())));
         }else{
-            messages.addAll(messageRepository.findByFromUser(userRepository.findById(user.getId().intValue())));
+            messages.addAll(messageRepository.findByFromUser(userRepository.findById(user.getId())));
         }
         return convertFrom(messages);
     }
 
     @Override
     public List<MessageDTO> getMessagesFor(UserDTO user) {
-        Users u = userRepository.findById(user.getId().intValue());
-
-        List<Messages> messages = messageRepository.findByToUser(u);
-        messages.addAll(messageRepository.findByFromUser(u));
-
+        List<Messages> messages = new ArrayList<>();
+        Users u = userRepository.findById(user.getId());
+        int role = u.getId();
+        if (role == Constraints.ADMIN_ROLE){
+            messages = messageRepository.findByToUser(u);
+        }else{
+            messages = messageRepository.findByToUser(u);
+        }
         return convertFrom(messages);
     }
 

@@ -22,7 +22,7 @@ public class RegisterService implements RegisterServiceImp {
     public boolean registerNewUserServiceMethod(Users users) {
         try {
             Roles role = rolesRepository.findById(Constraints.USER_ROLE).orElseThrow(() -> new RuntimeException("Role not found"));
-            users.setRoles(role); 
+            users.setRoles(role);
             userRepository.save(users);
             return true;
         } catch (Exception e) {

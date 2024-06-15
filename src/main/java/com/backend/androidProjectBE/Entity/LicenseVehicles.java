@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.util.Date;
 
+
 @Entity(name = "license_vehicles")
 @Data
 public class LicenseVehicles {

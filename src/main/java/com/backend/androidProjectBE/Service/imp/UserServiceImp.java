@@ -10,7 +10,8 @@ import java.util.stream.Stream;
 import org.springframework.core.io.Resource;
 
 public interface UserServiceImp {
-    Users updateUser(int id, UserDTO userDTO);
+    List<UserDTO> getAllUsers();
+    UserDTO updateUser(int id, UserDTO userDTO);
     UserDTO loadUsers(int id);
     UserStatus uploadLicenseStatus(int id);
     Users changePassword(int id, UserDTO userDTO);

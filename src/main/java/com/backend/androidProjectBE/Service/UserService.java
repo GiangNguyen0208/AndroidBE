@@ -1,10 +1,14 @@
 package com.backend.androidProjectBE.Service;
 
 import com.backend.androidProjectBE.Entity.LicenseVehicles;
+import com.backend.androidProjectBE.Entity.Roles;
 import com.backend.androidProjectBE.Entity.Users;
 import com.backend.androidProjectBE.Repository.LicenseVehiclesRepository;
+import com.backend.androidProjectBE.Repository.RoleRepository;
 import com.backend.androidProjectBE.Repository.UserRepository;
+import com.backend.androidProjectBE.Service.imp.RolesServiceImp;
 import com.backend.androidProjectBE.Service.imp.UserServiceImp;
+import com.backend.androidProjectBE.dto.RoleDTO;
 import com.backend.androidProjectBE.dto.UserDTO;
 import com.backend.androidProjectBE.dto.UserStatus;
 
@@ -21,19 +25,22 @@ import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
-public class UserService implements UserServiceImp {
+public class UserService implements UserServiceImp, RolesServiceImp {
     
     private final Path root = Paths.get("uploads");
 
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private LicenseVehiclesRepository licenseVehiclesRepository;
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Override
     public void init() {
@@ -45,21 +52,25 @@ public class UserService implements UserServiceImp {
     }
 
     @Override
-    public Users updateUser(int id, UserDTO userDTO) {
+    public UserDTO updateUser(int id, UserDTO userDTO) {
         Optional<Users> userOptional = Optional.ofNullable(userRepository.findById(id));
-        if (userOptional.isEmpty()) {
+        if (!userOptional.isPresent()) {
             throw new RuntimeException("User not found");
         }
-
         Users user = userOptional.get();
         user.setFirstname(userDTO.getFirstname());
         user.setLastname(userDTO.getLastname());
         user.setEmail(userDTO.getEmail());
+        user.setPassword(user.getPassword());
         user.setGender(userDTO.getGender());
         user.setPhone(userDTO.getPhone());
         user.setBirthDay(userDTO.getBirthDay());
-
-        return userRepository.save(user);
+        user.setIsAdminMessage(userDTO.getIsAdminMessage());
+        Optional<Roles> r = roleRepository.findByName(userDTO.getRoleName());
+        if (r.isPresent())
+            user.setRoles(r.get());
+        Users u = userRepository.save(user);
+        return convertToDTO(u);
     }
 
     @Override
@@ -68,6 +79,7 @@ public class UserService implements UserServiceImp {
         if (userOptional.isPresent()) {
             Users user = userOptional.get();
             UserDTO userResponseDTO = new UserDTO();
+            userResponseDTO.setId(user.getId());
             userResponseDTO.setFirstname(user.getFirstname());
             userResponseDTO.setLastname(user.getLastname());
             userResponseDTO.setEmail(user.getEmail());
@@ -75,7 +87,8 @@ public class UserService implements UserServiceImp {
             userResponseDTO.setPhone(user.getPhone());
             userResponseDTO.setGender(user.getGender());
             userResponseDTO.setBirthDay(user.getBirthDay());
-
+            userResponseDTO.setRoleName(user.getRoles().getName());
+            userResponseDTO.setIsAdminMessage(user.getIsAdminMessage());
             return userResponseDTO;
         } else {
             throw new RuntimeException("User not found");
@@ -171,4 +184,37 @@ public class UserService implements UserServiceImp {
       throw new RuntimeException("Could not load the files!");
     }
   }
+    public List<RoleDTO> getRoles() {
+        return roleRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
+    }
+
+    private RoleDTO convertToDTO(Roles role) {
+        RoleDTO result = RoleDTO.builder()
+                .id(role.getId())
+                .name(role.getName())
+                .dateCreate(role.getDateCreate()).build();
+        return result;
+    }
+
+    public List<UserDTO> getAllUsers() {
+        return userRepository.findAll().stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
+
+    private UserDTO convertToDTO(Users user) {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setId(user.getId());
+        userDTO.setUsername(user.getUsername());
+        userDTO.setFirstname(user.getFirstname());
+        userDTO.setLastname(user.getLastname());
+        userDTO.setGender(user.getGender());
+        userDTO.setPhone(user.getPhone());
+        userDTO.setEmail(user.getEmail());
+        userDTO.setBirthDay(user.getBirthDay());
+        userDTO.setRoleName(user.getRoles().getName());
+        userDTO.setIsAdminMessage(user.getIsAdminMessage());
+        return userDTO;
+    }
 }

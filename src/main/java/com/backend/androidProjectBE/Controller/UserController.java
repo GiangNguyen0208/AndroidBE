@@ -34,8 +34,8 @@ public class UserController {
     }
 
     @PutMapping("/users/{id}")
-    public ResponseEntity<Users> updateUser(@PathVariable int id, @RequestBody UserDTO userDTO) {
-        Users updatedUser = userServiceImp.updateUser(id, userDTO);
+    public ResponseEntity<UserDTO> updateUser(@PathVariable int id, @RequestBody UserDTO userDTO) {
+        UserDTO updatedUser = userServiceImp.updateUser(id, userDTO);
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
 
@@ -84,6 +84,11 @@ public class UserController {
         Resource file = userServiceImp.load(filename);
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+    }
+
+    @GetMapping("/users")
+    public ResponseEntity<List<UserDTO>> getUserList() {
+        return new ResponseEntity<>(userServiceImp.getAllUsers(), HttpStatus.OK);
     }
 
 }

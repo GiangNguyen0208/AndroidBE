@@ -16,14 +16,13 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class AdminService implements UserServiceImp, RolesServiceImp {
+public class AdminService {
 
     @Autowired
     UserRepository userRepository;
     @Autowired
     RoleRepository roleRepository;
 
-    @Override
     public List<UserDTO> getAllUsers() {
         return userRepository.findAll().stream()
                 .map(this::convertToDTO)
@@ -45,7 +44,6 @@ public class AdminService implements UserServiceImp, RolesServiceImp {
         return userDTO;
     }
 
-    @Override
     public UserDTO updateUser(int id, UserDTO usersChange) {
         Optional<Users> userOptional = Optional.ofNullable(userRepository.findById(id));
         if (!userOptional.isPresent()) {
@@ -68,7 +66,6 @@ public class AdminService implements UserServiceImp, RolesServiceImp {
     }
 
 
-    @Override
     public UserDTO loadUsers(int id) {
         Optional<Users> userOptional = Optional.ofNullable(userRepository.findById(id));
         if (userOptional.isPresent()) {

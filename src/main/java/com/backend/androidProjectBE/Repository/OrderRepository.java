@@ -16,4 +16,5 @@ public interface OrderRepository extends JpaRepository<OrderItems, Integer> {
     List<OrderItems> findOrderItemsWithReturnDateAfterNow(int idUser);
     @Query(value = "SELECT * FROM order_items WHERE user_id = :idUser AND  return_date < CURRENT_DATE", nativeQuery = true)
     List<OrderItems> findOrderItemsWithReturnDateBeforeNow(int idUser);
+
 }

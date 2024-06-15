@@ -3,9 +3,13 @@ package com.backend.androidProjectBE.Service;
 import com.backend.androidProjectBE.Entity.Users;
 import com.backend.androidProjectBE.Repository.UserRepository;
 import com.backend.androidProjectBE.Service.imp.LoginServiceImp;
+import com.backend.androidProjectBE.dto.UserDTO;
 import com.backend.androidProjectBE.dto.UserLogin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class LoginService implements LoginServiceImp {
@@ -15,6 +19,28 @@ public class LoginService implements LoginServiceImp {
     @Autowired
     public LoginService(UserRepository userRepository) {
         this.userRepository = userRepository;
+    }
+
+    public List<UserDTO> getAllUser() {
+        List<Users> listUser = userRepository.findAll();
+        List<UserDTO> userDTOList = new ArrayList<>();
+        for (Users u: listUser) {
+            UserDTO userDTO = UserDTO.builder()
+                    .id(u.getId())
+                    .username(u.getUsername())
+                    .roleName(u.getRoles().getName())
+                    .firstname(u.getFirstname())
+                    .lastname(u.getLastname())
+                    .gender(u.getGender())
+                    .phone(u.getPhone())
+                    .email(u.getEmail())
+                    .birthDay(u.getBirthDay())
+                    .password(u.getPassword())
+                    .isAdminMessage(u.getIsAdminMessage())
+                    .build();
+            userDTOList.add(userDTO);
+        }
+        return userDTOList;
     }
 
     @Override

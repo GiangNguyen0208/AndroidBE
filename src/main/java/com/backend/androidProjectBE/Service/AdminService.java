@@ -1,8 +1,12 @@
 package com.backend.androidProjectBE.Service;
 
+import com.backend.androidProjectBE.Entity.Roles;
 import com.backend.androidProjectBE.Entity.Users;
+import com.backend.androidProjectBE.Repository.RoleRepository;
 import com.backend.androidProjectBE.Repository.UserRepository;
+import com.backend.androidProjectBE.Service.imp.RolesServiceImp;
 import com.backend.androidProjectBE.Service.imp.UserServiceImp;
+import com.backend.androidProjectBE.dto.RoleDTO;
 import com.backend.androidProjectBE.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,12 +16,13 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class AdminService implements UserServiceImp {
+public class AdminService {
 
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    RoleRepository roleRepository;
 
-    @Override
     public List<UserDTO> getAllUsers() {
         return userRepository.findAll().stream()
                 .map(this::convertToDTO)
@@ -35,11 +40,11 @@ public class AdminService implements UserServiceImp {
         userDTO.setEmail(user.getEmail());
         userDTO.setBirthDay(user.getBirthDay());
         userDTO.setRoleName(user.getRoles().getName());
+        userDTO.setIsAdminMessage(user.getIsAdminMessage());
         return userDTO;
     }
 
-    @Override
-    public Users updateUser(int id, Users usersChange) {
+    public UserDTO updateUser(int id, UserDTO usersChange) {
         Optional<Users> userOptional = Optional.ofNullable(userRepository.findById(id));
         if (!userOptional.isPresent()) {
             throw new RuntimeException("User not found");
@@ -52,17 +57,21 @@ public class AdminService implements UserServiceImp {
         user.setGender(usersChange.getGender());
         user.setPhone(usersChange.getPhone());
         user.setBirthDay(usersChange.getBirthDay());
-
-        return userRepository.save(user);
+        user.setIsAdminMessage(usersChange.getIsAdminMessage());
+        Optional<Roles> r = roleRepository.findByName(usersChange.getRoleName());
+        if (r.isPresent())
+            user.setRoles(r.get());
+        Users u = userRepository.save(user);
+        return convertToDTO(u);
     }
 
 
-    @Override
     public UserDTO loadUsers(int id) {
         Optional<Users> userOptional = Optional.ofNullable(userRepository.findById(id));
         if (userOptional.isPresent()) {
             Users user = userOptional.get();
             UserDTO userResponseDTO = new UserDTO();
+            userResponseDTO.setId(user.getId());
             userResponseDTO.setFirstname(user.getFirstname());
             userResponseDTO.setLastname(user.getLastname());
             userResponseDTO.setEmail(user.getEmail());
@@ -70,10 +79,24 @@ public class AdminService implements UserServiceImp {
             userResponseDTO.setPhone(user.getPhone());
             userResponseDTO.setGender(user.getGender());
             userResponseDTO.setBirthDay(user.getBirthDay());
-
+            userResponseDTO.setRoleName(user.getRoles().getName());
+            userResponseDTO.setIsAdminMessage(user.getIsAdminMessage());
             return userResponseDTO;
         } else {
             throw new RuntimeException("User not found");
         }
+    }
+
+
+    public List<RoleDTO> getRoles() {
+        return roleRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
+    }
+
+    private RoleDTO convertToDTO(Roles role) {
+        RoleDTO result = RoleDTO.builder()
+                .id(role.getId())
+                .name(role.getName())
+                .dateCreate(role.getDateCreate()).build();
+        return result;
     }
 }

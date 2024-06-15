@@ -56,4 +56,6 @@ public class VehicleController {
         List<VehiclesDTO> vehiclesDTOs = vehiclesServiceImp.getVehiclesByTxtSearch(txtSearch);
         return ResponseEntity.ok().body(vehiclesDTOs);
     }
+
+
 }

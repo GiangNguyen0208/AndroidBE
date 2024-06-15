@@ -2,7 +2,7 @@ package com.backend.androidProjectBE.Service;
 
 import com.backend.androidProjectBE.Entity.Roles;
 import com.backend.androidProjectBE.Entity.Users;
-import com.backend.androidProjectBE.Repository.RolesRepository;
+import com.backend.androidProjectBE.Repository.RoleRepository;
 import com.backend.androidProjectBE.Repository.UserRepository;
 import com.backend.androidProjectBE.Service.imp.RegisterServiceImp;
 import com.backend.androidProjectBE.Utils.Constraints;
@@ -16,13 +16,13 @@ public class RegisterService implements RegisterServiceImp {
     UserRepository userRepository;
 
     @Autowired
-    RolesRepository rolesRepository;
+    RoleRepository rolesRepository;
 
     @Override
     public boolean registerNewUserServiceMethod(Users users) {
         try {
             Roles role = rolesRepository.findById(Constraints.USER_ROLE).orElseThrow(() -> new RuntimeException("Role not found"));
-            users.setRoles(role); 
+            users.setRoles(role);
             userRepository.save(users);
             return true;
         } catch (Exception e) {

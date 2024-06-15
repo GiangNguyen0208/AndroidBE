@@ -35,7 +35,7 @@ public class VehiclesDTO {
 
     private Date returnDate;
 
-    private String desc;
+    private String about;
 
     private Integer day;
 }

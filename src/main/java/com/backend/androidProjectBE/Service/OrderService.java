@@ -13,7 +13,10 @@ import com.backend.androidProjectBE.dto.OrderItemDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class OrderService implements OrderServiceImp {
@@ -62,9 +65,90 @@ public class OrderService implements OrderServiceImp {
     }
 
     @Override
-    public List<OrderItems> findAll(int iduser) {
+    public List<OrderItemDTO> findAll(int iduser) {
         List<OrderItems> orderItemsList = orderRepository.findAllByUsers_Id(iduser);
-        return orderItemsList;
+        List<OrderItemDTO> orderItemDTOS = new ArrayList<>();
+        for (OrderItems items : orderItemsList) {
+            Date date1 = items.getRentalDate();
+            Date date2 = items.getReturnDate();
+            long dayLong = date2.getTime() - date1.getTime();
+            long day = TimeUnit.MILLISECONDS.toDays(dayLong);
+            int dayInt = (int) day;
+            // Tính toán sự khác biệt giữa hai ngày
+            OrderItemDTO orderItemDTO = OrderItemDTO.builder()
+                    .id(items.getId())
+                    .vehicleid(items.getVehicles().getId())
+                    .nameVehicle(items.getVehicles().getName())
+                    .price(items.getPrice())
+                    .brandVehicle(items.getVehicles().getBrands().getName())
+                    .rentalDate(items.getRentalDate())
+                    .returnDate(items.getReturnDate())
+                    .rental_day(dayInt)
+                    .phone(items.getPhone())
+                    .email(items.getEmail())
+                    .address(items.getEmail())
+                    .build();
+            orderItemDTOS.add(orderItemDTO);
+        }
+        return orderItemDTOS;
+    }
+
+    @Override
+    public List<OrderItemDTO> getHistoryOrderContinue(int iduser) {
+        List<OrderItems> orderItemsList = orderRepository.findOrderItemsWithReturnDateAfterNow(iduser);
+        List<OrderItemDTO> orderItemDTOS = new ArrayList<>();
+        for (OrderItems items : orderItemsList) {
+            Date date1 = items.getRentalDate();
+            Date date2 = items.getReturnDate();
+            long dayLong = date2.getTime() - date1.getTime();
+            long day = TimeUnit.MILLISECONDS.toDays(dayLong);
+            int dayInt = (int) day;
+            // Tính toán sự khác biệt giữa hai ngày
+            OrderItemDTO orderItemDTO = OrderItemDTO.builder()
+                    .id(items.getId())
+//                    .vehicleid(items.getVehicles().getId())
+                    .nameVehicle(items.getVehicles().getName())
+                    .price(items.getPrice())
+//                    .brandVehicle(items.getVehicles().getBrands().getName())
+                    .rentalDate(items.getRentalDate())
+                    .returnDate(items.getReturnDate())
+//                    .rental_day(dayInt)
+//                    .phone(items.getPhone())
+//                    .email(items.getEmail())
+//                    .address(items.getEmail())
+                    .build();
+            orderItemDTOS.add(orderItemDTO);
+        }
+        return orderItemDTOS;
+    }
+
+    @Override
+    public List<OrderItemDTO> getHistoryOrderCompleted(int iduser) {
+        List<OrderItems> orderItemsList = orderRepository.findOrderItemsWithReturnDateBeforeNow(iduser);
+        List<OrderItemDTO> orderItemDTOS = new ArrayList<>();
+        for (OrderItems items : orderItemsList) {
+            Date date1 = items.getRentalDate();
+            Date date2 = items.getReturnDate();
+            long dayLong = date2.getTime() - date1.getTime();
+            long day = TimeUnit.MILLISECONDS.toDays(dayLong);
+            int dayInt = (int) day;
+            // Tính toán sự khác biệt giữa hai ngày
+            OrderItemDTO orderItemDTO = OrderItemDTO.builder()
+                    .id(items.getId())
+//                    .vehicleid(items.getVehicles().getId())
+                    .nameVehicle(items.getVehicles().getName())
+                    .price(items.getPrice())
+//                    .brandVehicle(items.getVehicles().getBrands().getName())
+                    .rentalDate(items.getRentalDate())
+                    .returnDate(items.getReturnDate())
+//                    .rental_day(dayInt)
+//                    .phone(items.getPhone())
+//                    .email(items.getEmail())
+//                    .address(items.getEmail())
+                    .build();
+            orderItemDTOS.add(orderItemDTO);
+        }
+        return orderItemDTOS;
     }
 
     @Override
@@ -90,6 +174,31 @@ public class OrderService implements OrderServiceImp {
                 .phone(cartItems.getPhone())
                 .email(cartItems.getEmail())
                 .build();
+        return orderItemDTO;
+    }
+
+    @Override
+    public OrderItemDTO getDetail(int idOrderItem) {
+        OrderItems orderItems = orderRepository.findById(idOrderItem);
+            Date date1 = orderItems.getRentalDate();
+            Date date2 = orderItems.getReturnDate();
+            long dayLong = date2.getTime() - date1.getTime();
+            long day = TimeUnit.MILLISECONDS.toDays(dayLong);
+            int dayInt = (int) day;
+            // Tính toán sự khác biệt giữa hai ngày
+            OrderItemDTO orderItemDTO = OrderItemDTO.builder()
+                    .id(orderItems.getId())
+                    .vehicleid(orderItems.getVehicles().getId())
+                    .nameVehicle(orderItems.getVehicles().getName())
+                    .price(orderItems.getPrice())
+                    .brandVehicle(orderItems.getVehicles().getBrands().getName())
+                    .rentalDate(orderItems.getRentalDate())
+                    .returnDate(orderItems.getReturnDate())
+                    .rental_day(dayInt)
+                    .phone(orderItems.getPhone())
+                    .email(orderItems.getEmail())
+                    .address(orderItems.getEmail())
+                    .build();
         return orderItemDTO;
     }
 }

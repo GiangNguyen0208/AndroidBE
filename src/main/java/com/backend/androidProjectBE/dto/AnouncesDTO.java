@@ -9,8 +9,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+public class AnouncesDTO {
+    private Integer id;
 
-public class NotificationDTO {
     private String title;
-    private String body;
+
+    private String content;
 }

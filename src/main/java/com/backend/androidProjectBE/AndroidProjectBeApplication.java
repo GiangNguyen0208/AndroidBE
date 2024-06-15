@@ -24,4 +24,5 @@ public class AndroidProjectBeApplication implements CommandLineRunner{
 //    userService.deleteAll();
 		userService.init();
 	}
+
 }

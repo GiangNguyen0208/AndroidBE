@@ -33,4 +33,16 @@ public class OrderController {
     public ResponseEntity<?> findAllOrder(@RequestParam int idUser) {
         return new ResponseEntity<>(orderServiceImp.findAll(idUser), HttpStatus.OK);
     }
+    @GetMapping("/order/getHistoryOrderContinue")
+    public ResponseEntity<?> findOrderContinue(@RequestParam int idUser) {
+        return new ResponseEntity<>(orderServiceImp.getHistoryOrderContinue(idUser), HttpStatus.OK);
+    }
+    @GetMapping("/order/getHistoryOrderCompleted")
+    public ResponseEntity<?> findOrderCompleted(@RequestParam int idUser) {
+        return new ResponseEntity<>(orderServiceImp.getHistoryOrderCompleted(idUser), HttpStatus.OK);
+    }
+    @GetMapping("/order/getDetail")
+    public ResponseEntity<?> getOrderDetail(@RequestParam int idOrderItem) {
+        return new ResponseEntity<>(orderServiceImp.getDetail(idOrderItem), HttpStatus.OK);
+    }
 }

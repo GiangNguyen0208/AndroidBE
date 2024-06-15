@@ -1,7 +1,9 @@
 package com.backend.androidProjectBE.Controller;
 
 import com.backend.androidProjectBE.Entity.Users;
+import com.backend.androidProjectBE.Service.imp.RolesServiceImp;
 import com.backend.androidProjectBE.Service.imp.UserServiceImp;
+import com.backend.androidProjectBE.dto.RoleDTO;
 import com.backend.androidProjectBE.dto.UserDTO;
 import com.backend.androidProjectBE.dto.UserStatus;
 import com.backend.androidProjectBE.model.FileInfo;
@@ -26,6 +28,8 @@ public class UserController {
 
     @Autowired
     private UserServiceImp userServiceImp;
+    @Autowired
+    private RolesServiceImp rolesServiceImp;
 
     @GetMapping("/users/{id}")
     public ResponseEntity<UserDTO> getUser(@PathVariable int id) {
@@ -90,6 +94,13 @@ public class UserController {
     public ResponseEntity<List<UserDTO>> getUserList() {
         return new ResponseEntity<>(userServiceImp.getAllUsers(), HttpStatus.OK);
     }
+
+
+    @GetMapping("/roles")
+    public ResponseEntity<List<RoleDTO>> getRoles() {
+        return new ResponseEntity<>(rolesServiceImp.getRoles(), HttpStatus.OK);
+    }
+
 
 }
 
